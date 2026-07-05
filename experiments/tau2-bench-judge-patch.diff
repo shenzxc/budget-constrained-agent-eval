@@ -1,0 +1,18 @@
+diff --git a/src/tau2/config.py b/src/tau2/config.py
+index d8a8ace..4f2e8b7 100644
+--- a/src/tau2/config.py
++++ b/src/tau2/config.py
+@@ -21,11 +21,11 @@ DEFAULT_LLM_TEMPERATURE_USER = 0.0
+ DEFAULT_LLM_ARGS_AGENT = {"temperature": DEFAULT_LLM_TEMPERATURE_AGENT}
+ DEFAULT_LLM_ARGS_USER = {"temperature": DEFAULT_LLM_TEMPERATURE_USER}
+ 
+-DEFAULT_LLM_NL_ASSERTIONS = "gpt-4.1-2025-04-14"
++DEFAULT_LLM_NL_ASSERTIONS = "deepseek/deepseek-v4-pro"  # patched: no OpenAI key available; same judge for all evaluated agents
+ DEFAULT_LLM_NL_ASSERTIONS_TEMPERATURE = 0.0
+ DEFAULT_LLM_NL_ASSERTIONS_ARGS = {"temperature": DEFAULT_LLM_NL_ASSERTIONS_TEMPERATURE}
+ 
+-DEFAULT_LLM_ENV_INTERFACE = "gpt-4.1-2025-04-14"
++DEFAULT_LLM_ENV_INTERFACE = "deepseek/deepseek-v4-pro"  # patched: no OpenAI key available; same judge for all evaluated agents
+ DEFAULT_LLM_ENV_INTERFACE_TEMPERATURE = 0.0
+ DEFAULT_LLM_ENV_INTERFACE_ARGS = {"temperature": DEFAULT_LLM_ENV_INTERFACE_TEMPERATURE}
+ 

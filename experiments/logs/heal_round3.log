@@ -1,0 +1,56 @@
+共 36 条(域,模型)任务待处理。user_llm=deepseek/deepseek-v4-flash, max_concurrency=2, dry_run=False
+域任务数: {'airline': 50, 'retail': 114, 'telecom': 114}
+--------------------------------------------------------------------------------
+[SKIP] airline/deepseek-v4-flash: 已完整: 150/150 simulations
+[RUN] retail/deepseek-v4-flash (trials=3, save_to=retail_deepseek_deepseek-v4-flash) :: 未跑完: 341/342 simulations,将用--auto-resume续跑
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain retail --agent-llm deepseek/deepseek-v4-flash --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 3 --max-concurrency 2 --save-to retail_deepseek_deepseek-v4-flash --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/deepseek-v4-flash_retail.log
+[SKIP] telecom/deepseek-v4-flash: 已完整: 342/342 simulations
+[SKIP] airline/deepseek-v4-pro: 已完整: 50/50 simulations
+[SKIP] retail/deepseek-v4-pro: 已完整: 114/114 simulations
+[SKIP] telecom/deepseek-v4-pro: 已完整: 114/114 simulations
+[SKIP] airline/qwen3.7-max: 已完整: 50/50 simulations
+[SKIP] retail/qwen3.7-max: 已完整: 114/114 simulations
+[SKIP] telecom/qwen3.7-max: 已完整: 114/114 simulations
+[SKIP] airline/qwen3.7-plus: 已完整: 150/150 simulations
+[SKIP] retail/qwen3.7-plus: 已完整: 342/342 simulations
+[RUN] telecom/qwen3.7-plus (trials=3, save_to=telecom_dashscope_qwen3.7-plus) :: 未跑完: 340/342 simulations,将用--auto-resume续跑
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain telecom --agent-llm dashscope/qwen3.7-plus --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 3 --max-concurrency 2 --save-to telecom_dashscope_qwen3.7-plus --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.7-plus_telecom.log
+[SKIP] airline/qwen3.6-flash: 已完整: 50/50 simulations
+[SKIP] retail/qwen3.6-flash: 已完整: 114/114 simulations
+[SKIP] telecom/qwen3.6-flash: 已完整: 114/114 simulations
+[SKIP] airline/qwen3.5-397b-a17b: 已完整: 50/50 simulations
+[SKIP] retail/qwen3.5-397b-a17b: 已完整: 114/114 simulations
+[SKIP] telecom/qwen3.5-397b-a17b: 已完整: 114/114 simulations
+[SKIP] airline/qwen3.5-122b-a10b: 已完整: 50/50 simulations
+[SKIP] retail/qwen3.5-122b-a10b: 已完整: 114/114 simulations
+[SKIP] telecom/qwen3.5-122b-a10b: 已完整: 114/114 simulations
+[RUN] airline/qwen3.5-35b-a3b (trials=1, save_to=airline_dashscope_qwen3.5-35b-a3b) :: 未跑完: 35/50 simulations,将用--auto-resume续跑
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain airline --agent-llm dashscope/qwen3.5-35b-a3b --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 2 --save-to airline_dashscope_qwen3.5-35b-a3b --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.5-35b-a3b_airline.log
+[RUN] retail/qwen3.5-35b-a3b (trials=1, save_to=retail_dashscope_qwen3.5-35b-a3b) :: 未跑完: 113/114 simulations,将用--auto-resume续跑
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain retail --agent-llm dashscope/qwen3.5-35b-a3b --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 2 --save-to retail_dashscope_qwen3.5-35b-a3b --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.5-35b-a3b_retail.log
+[RUN] telecom/qwen3.5-35b-a3b (trials=1, save_to=telecom_dashscope_qwen3.5-35b-a3b) :: 未跑完: 113/114 simulations,将用--auto-resume续跑
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain telecom --agent-llm dashscope/qwen3.5-35b-a3b --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 2 --save-to telecom_dashscope_qwen3.5-35b-a3b --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.5-35b-a3b_telecom.log
+[SKIP] airline/qwen3.5-27b: 已完整: 50/50 simulations
+[SKIP] retail/qwen3.5-27b: 已完整: 114/114 simulations
+[SKIP] telecom/qwen3.5-27b: 已完整: 114/114 simulations
+[SKIP] airline/qwen3-32b: 已完整: 50/50 simulations
+[SKIP] retail/qwen3-32b: 已完整: 114/114 simulations
+[SKIP] telecom/qwen3-32b: 已完整: 114/114 simulations
+[SKIP] airline/qwen3-235b-instruct: 已完整: 50/50 simulations
+[SKIP] retail/qwen3-235b-instruct: 已完整: 114/114 simulations
+[SKIP] telecom/qwen3-235b-instruct: 已完整: 114/114 simulations
+[SKIP] airline/qwen3-235b-thinking: 已完整: 50/50 simulations
+[SKIP] retail/qwen3-235b-thinking: 已完整: 114/114 simulations
+[SKIP] telecom/qwen3-235b-thinking: 已完整: 114/114 simulations
+--------------------------------------------------------------------------------
+汇总: 共36条, 跳过31条(已完整), 已执行5条。

@@ -1,0 +1,25 @@
+=== airline / deepseek-v4-flash ===
+│   🏆 Average Reward         0.9000                                           │
+│      Pass^1                 0.900                                            │
+│   💰 Avg Cost/Conversation  $0.0021                                          │
+=== airline / deepseek-v4-pro ===
+│   🏆 Average Reward         0.9000                                           │
+│      Pass^1                 0.900                                            │
+│   💰 Avg Cost/Conversation  $0.0052                                          │
+=== retail / deepseek-v4-flash ===
+│   🏆 Average Reward         0.7143                                           │
+│      Pass^1                 0.714                                            │
+│   💰 Avg Cost/Conversation  $0.0024                                          │
+=== retail / deepseek-v4-pro ===
+│   🏆 Average Reward         0.8333                                           │
+│      Pass^1                 0.833                                            │
+│   💰 Avg Cost/Conversation  $0.0073                                          │
+=== telecom / deepseek-v4-flash ===
+│   🏆 Average Reward         1.0000                                           │
+│      Pass^1                 1.000                                            │
+│   💰 Avg Cost/Conversation  $0.0018                                          │
+=== telecom / deepseek-v4-pro ===
+│   🏆 Average Reward         1.0000                                           │
+│      Pass^1                 1.000                                            │
+│   💰 Avg Cost/Conversation  $0.0054                                          │
+DONE

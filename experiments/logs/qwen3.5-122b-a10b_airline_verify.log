@@ -1,0 +1,121 @@
+2026-07-04 13:03:13.282 | INFO     | tau2.utils.utils:<module>:28 - Using data directory from source: /Users/shenweiming/Projects/论文/experiments/tau2-bench/data
+2026-07-04 13:03:16.595 | INFO     | tau2.utils.llm_utils:<module>:102 - LiteLLM: Cache is disabled
+2026-07-04 13:03:16.745 | DEBUG    | tau2.registry:<module>:281 - Registering default components...
+2026-07-04 13:03:16.749 | DEBUG    | tau2.registry:<module>:292 - Voice dependencies not installed, skipping voice user registration
+2026-07-04 13:03:16.750 | DEBUG    | tau2.registry:<module>:350 - Default components registered successfully. Registry info: {
+  "domains": [
+    "mock",
+    "airline",
+    "retail",
+    "telecom",
+    "telecom-workflow",
+    "banking_knowledge"
+  ],
+  "agents": [
+    "llm_agent",
+    "llm_agent_gt",
+    "llm_agent_solo",
+    "discrete_time_audio_native_agent"
+  ],
+  "users": [
+    "user_simulator",
+    "dummy_user"
+  ],
+  "task_sets": [
+    "mock",
+    "airline",
+    "retail",
+    "telecom_full",
+    "telecom_small",
+    "telecom",
+    "telecom-workflow",
+    "banking_knowledge"
+  ]
+}
+╭────────────────────────── Simulation Configuration ──────────────────────────╮
+│ Domain: airline  Task Set: Default  Tasks: All                               │
+│ Trials: 1  Max Steps: 200  Max Errors: 10                                    │
+│                                                                              │
+│ Agent: llm_agent → dashscope/qwen3.5-122b-a10b                               │
+│ User:  user_simulator → deepseek/deepseek-v4-flash                           │
+│                                                                              │
+│ Save: Not specified  Concurrency: 1  Verbose: False                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+0/1 (trial 1/1). Running task 0, trial 1
+2026-07-04 13:03:23.428 | ERROR    | tau2.utils.llm_utils:get_response_cost:129 - This model isn't mapped yet. model=dashscope/qwen3.5-122b-a10b, custom_llm_provider=dashscope. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.
+
+2026-07-04 13:03:30.682 | ERROR    | tau2.utils.llm_utils:get_response_cost:129 - This model isn't mapped yet. model=dashscope/qwen3.5-122b-a10b, custom_llm_provider=dashscope. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.
+
+2026-07-04 13:03:35.416 | ERROR    | tau2.utils.llm_utils:get_response_cost:129 - This model isn't mapped yet. model=dashscope/qwen3.5-122b-a10b, custom_llm_provider=dashscope. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.
+
+  Retry 1/3 for task 0: AssistantMessage must have either content or tool_calls.
+Got AssistantMessage
+is_final_chunk: True
+2026-07-04 13:03:40.879 | ERROR    | tau2.utils.llm_utils:get_response_cost:129 - This model isn't mapped yet. model=dashscope/qwen3.5-122b-a10b, custom_llm_provider=dashscope. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.
+
+Status: 0/1 complete. Avg reward: N/A. 1 running: 0.0(12s R1)
+2026-07-04 13:03:47.875 | ERROR    | tau2.utils.llm_utils:get_response_cost:129 - This model isn't mapped yet. model=dashscope/qwen3.5-122b-a10b, custom_llm_provider=dashscope. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.
+
+2026-07-04 13:03:58.720 | ERROR    | tau2.utils.llm_utils:get_response_cost:129 - This model isn't mapped yet. model=dashscope/qwen3.5-122b-a10b, custom_llm_provider=dashscope. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.
+
+2026-07-04 13:03:59.666 | ERROR    | tau2.utils.llm_utils:get_response_cost:129 - This model isn't mapped yet. model=dashscope/qwen3.5-122b-a10b, custom_llm_provider=dashscope. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.
+
+2026-07-04 13:04:02.678 | ERROR    | tau2.utils.llm_utils:get_response_cost:129 - This model isn't mapped yet. model=dashscope/qwen3.5-122b-a10b, custom_llm_provider=dashscope. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.
+
+2026-07-04 13:04:10.087 | ERROR    | tau2.utils.llm_utils:get_response_cost:129 - This model isn't mapped yet. model=dashscope/qwen3.5-122b-a10b, custom_llm_provider=dashscope. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.
+
+2026-07-04 13:04:12.176 | ERROR    | tau2.utils.llm_utils:get_response_cost:129 - This model isn't mapped yet. model=dashscope/qwen3.5-122b-a10b, custom_llm_provider=dashscope. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.
+
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 0                                                                   │
+│ Trial: 0                                                                     │
+│ Duration: 37.19s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0000                                                          │
+│ User Cost: $0.0002                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: {'note': 'No actions to evaluate'}                                   │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+  Task 0 succeeded on retry 1
+
+Successfully completed all simulations!
+To review the simulations, run: tau2 view
+╭───────────────────────── Agent Performance Metrics ──────────────────────────╮
+│   ═══ Overview ═══                                                           │
+│   Total Simulations         1                                                │
+│   Total Tasks               1                                                │
+│                                                                              │
+│   ═══ Reward Metrics ═══                                                     │
+│   🏆 Average Reward         1.0000                                           │
+│      Pass^1                 1.000                                            │
+│   💰 Avg Cost/Conversation  $0.0000                                          │
+│                                                                              │
+│   ═══ Action Metrics ═══                                                     │
+│   📖 Read Actions           -                                                │
+│   ✏️  Write Actions          -                                                │
+│                                                                              │
+│   ═══ DB Match ═══                                                           │
+│   🗄️  DB Match               ✓ 1 / ✗ 0 (100.0%)                               │
+│                                                                              │
+│   ═══ Authentication ═══                                                     │
+│      Not Checked            1                                                │
+│                                                                              │
+│   ═══ Termination ═══                                                        │
+│   🛑 Normal Stop            1 (👤 1 / 🤖 0)                                  │
+│                                                                              │
+│   ═══ LLM Judge Review ═══                                                   │
+│   🤖 Agent Errors           0 errors                                         │
+│      Sims by severity       -                                                │
+│   👤 User Errors            0 errors                                         │
+│      Sims by severity       -                                                │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯

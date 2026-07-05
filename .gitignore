@@ -1,0 +1,15 @@
+# 密钥与账单——绝不入库
+**/.env
+**/.env.*
+*consumedetailbill*.csv
+usage_data_*/
+
+# 大型克隆仓库与虚拟环境
+experiments/tau2-bench/
+experiments/gorilla/
+experiments/.venv/
+
+# 系统与临时文件
+.DS_Store
+__pycache__/
+*.pyc

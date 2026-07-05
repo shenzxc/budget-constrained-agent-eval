@@ -1,0 +1,18 @@
+Kendall's tau: rank-under-budget vs rank-by-unconstrained-pass1
+(tau near 1 => budget-constrained ranking agrees with unconstrained pass1 ranking;
+ tau near 0 or negative => budget materially reshuffles the leaderboard)
+
+# Domain: airline (median b_at_50 = 0.021149 USD, n_models=12)
+  budget=0.3x (B=0.006345 USD): kendall_tau=-0.0179, p_value=0.9413
+  budget=1x (B=0.021149 USD): kendall_tau=0.2261, p_value=0.3247
+  budget=3x (B=0.063447 USD): kendall_tau=0.6021, p_value=0.009097
+
+# Domain: retail (median b_at_50 = 0.023457 USD, n_models=12)
+  budget=0.3x (B=0.007037 USD): kendall_tau=0.1737, p_value=0.4605
+  budget=1x (B=0.023457 USD): kendall_tau=0.4122, p_value=0.06348
+  budget=3x (B=0.070370 USD): kendall_tau=0.8769, p_value=8.601e-05
+
+# Domain: telecom (median b_at_50 = 0.029350 USD, n_models=12)
+  budget=0.3x (B=0.008805 USD): kendall_tau=0.5157, p_value=0.03095
+  budget=1x (B=0.029350 USD): kendall_tau=0.4690, p_value=0.03751
+  budget=3x (B=0.088050 USD): kendall_tau=0.8387, p_value=0.0002679

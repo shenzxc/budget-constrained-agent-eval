@@ -1,0 +1,10 @@
+Price-reversal analysis: pairs where list-price rank order and
+realized-cost rank order disagree (i.e. model A is listed cheaper than
+model B by list price, but ends up more expensive per task in practice).
+
+Models compared: 12
+Total pairs: 66
+Reversed pairs: 0
+Reversed fraction: 0.0000 (0.00%)
+
+Reversed pairs (model_a, model_b):

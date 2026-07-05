@@ -1,0 +1,196 @@
+# 模型矩阵与计价表(预算受控智能体评测)
+# 价格单位:每百万token的价格。currency: USD 或 CNY(CNY按exchange_rate折算成USD记账)
+# 计价口径:官方牌价、缓存未命中(cache-miss)价。
+# 每个模型必须带 price_source 注明来源URL,核实日期写入 price_date。
+# input_price = prompt tokens 单价;output_price = completion tokens 单价(含思考token,与API计费口径一致)
+#
+# 已于2026-07-04核实完毕(见下方各条目price_source/price_date)。核实方法说明:
+# - DeepSeek: 直接从官方定价页(api-docs.deepseek.com/quick_start/pricing)抓取,USD计价,
+#   取cache-miss(缓存未命中)价格,与models.yaml口径一致。
+# - Qwen(DashScope): 直接curl抓取help.aliyun.com官方定价页原始HTML(该页面为JS渲染的大页面,
+#   WebFetch摘要工具在多次尝试中返回了不一致/过时的数字,例如qwen3.7-max曾被总结为"11.0/32.84元"
+#   或"2.5/7.5元",与页面原始表格数据"12/36元"不符,故改用curl下载原始HTML后用正则提取<tr>表格行,
+#   核对表头列结构后逐行读取数字,避免了摘要工具的转述误差),统一取"华北2(北京)"区域(对应国内
+#   DASHSCOPE_API_KEY实际调用的计费区域)、非批量调用(Batch)、无上下文缓存折扣的标准价,且在
+#   输入token量落入第一档计费区间时的单价(多数模型仅一档;qwen3.6-flash/qwen3.7-plus为阶梯计费,
+#   取0<Token≤256K档;若实际任务输入超过256K会自动跳到更贵的第二档,本项目τ2-bench单任务prompt
+#   通常在数万到十几万token量级,取第一档价格作为主口径估计,存在轻微低估风险,见全量预估.md说明)。
+#   对于同时提供"非思考模式"和"思考模式(思维链+回答)"两档输出价的模型,统一填思考模式价格
+#   (与全部实验默认开启thinking的口径一致),在下方model条目的注释里同时记录非思考价供参考。
+#
+# 汇率来源:中国外汇交易中心(CFETS)受权公布的人民币汇率中间价公告,2026年7月1日:1美元=6.8067元人民币。
+# 来源:https://www.chinamoney.com.cn/chinese/ccprnoticecontent/index.html?searchDate=2026-07-01
+# (经金投网 https://forex.cngold.org/c/2026-07-01/c10594322.html 及新浪财经交叉验证一致)
+exchange_rate_usd_cny: 6.8067
+exchange_rate_source: "https://www.chinamoney.com.cn/chinese/ccprnoticecontent/index.html?searchDate=2026-07-01"
+exchange_rate_date: "2026-07-01"
+
+user_simulator:               # 全部实验固定,不计入agent预算
+  litellm: deepseek/deepseek-v4-flash
+judge:                        # τ³-bench NL断言判分器(已patch进config.py),不计入agent预算
+  litellm: deepseek/deepseek-v4-pro
+
+models:
+  - id: deepseek-v4-flash
+    litellm: deepseek/deepseek-v4-flash
+    family: deepseek
+    tier: flash
+    open_weight: true
+    input_price: 0.14    # cache-miss价;cache-hit价为0.0028(未使用,不入账)
+    output_price: 0.28
+    currency: USD
+    price_source: "https://api-docs.deepseek.com/quick_start/pricing"
+    price_date: "2026-07-04"
+
+  - id: deepseek-v4-pro
+    litellm: deepseek/deepseek-v4-pro
+    family: deepseek
+    tier: pro
+    open_weight: true
+    input_price: 0.435   # cache-miss价;cache-hit价为0.003625(未使用,不入账)
+    output_price: 0.87
+    currency: USD
+    price_source: "https://api-docs.deepseek.com/quick_start/pricing"
+    price_date: "2026-07-04"
+
+  - id: qwen3.7-max
+    litellm: dashscope/qwen3.7-max
+    family: qwen-commercial
+    tier: max
+    open_weight: false
+    input_price: 12.0    # 非思考和思考模式共用同一档输出价(表格"模式"列标注"非思考和思考模式"),
+    output_price: 36.0    # 即该模型的输出价已经是含思维链的统一价,无需再区分
+    currency: CNY
+    price_source: "https://help.aliyun.com/zh/model-studio/model-pricing"
+    price_date: "2026-07-04"
+
+  - id: qwen3.7-plus
+    litellm: dashscope/qwen3.7-plus
+    family: qwen-commercial
+    tier: plus
+    open_weight: false
+    input_price: 2.0     # 阶梯计费第一档(0<Token≤256K);第二档(256K<Token≤1M)为input=6/output=24
+    output_price: 8.0     # 非思考/思考模式输出价相同(表格思考模式列同为8元)
+    currency: CNY
+    price_source: "https://help.aliyun.com/zh/model-studio/model-pricing"
+    price_date: "2026-07-04"
+
+  - id: qwen3.6-flash
+    litellm: dashscope/qwen3.6-flash
+    family: qwen-commercial
+    tier: flash
+    open_weight: false
+    input_price: 1.2     # 阶梯计费第一档(0<Token≤256K);第二档(256K<Token≤1M)为input=4.8/output=28.8
+    output_price: 7.2     # 非思考和思考模式共用同一档输出价
+    currency: CNY
+    price_source: "https://help.aliyun.com/zh/model-studio/model-pricing"
+    price_date: "2026-07-04"
+
+  - id: qwen3.5-397b-a17b
+    litellm: dashscope/qwen3.5-397b-a17b
+    family: qwen-open
+    tier: xl
+    open_weight: true
+    input_price: 1.2     # 单一档,输入范围0<Token≤128K
+    output_price: 7.2     # 非思考模式与思考模式(思维链+回答)价格相同,均为7.2元
+    currency: CNY
+    price_source: "https://help.aliyun.com/zh/model-studio/model-pricing"
+    price_date: "2026-07-04"
+
+  - id: qwen3.5-122b-a10b
+    litellm: dashscope/qwen3.5-122b-a10b
+    family: qwen-open
+    tier: l
+    open_weight: true
+    input_price: 0.8
+    output_price: 6.4     # 非思考/思考模式价格相同
+    currency: CNY
+    price_source: "https://help.aliyun.com/zh/model-studio/model-pricing"
+    price_date: "2026-07-04"
+
+  - id: qwen3.5-35b-a3b
+    litellm: dashscope/qwen3.5-35b-a3b
+    family: qwen-open
+    tier: m
+    open_weight: true
+    input_price: 0.4     # 阶梯计费第一档(0<Token≤128K);第二档(128K<Token≤256K)为input=1.6/output=12.8
+    output_price: 3.2     # 非思考/思考模式价格相同
+    currency: CNY
+    price_source: "https://help.aliyun.com/zh/model-studio/model-pricing"
+    price_date: "2026-07-04"
+
+  - id: qwen3.5-27b
+    litellm: dashscope/qwen3.5-27b
+    family: qwen-open
+    tier: s
+    open_weight: true
+    input_price: 0.6
+    output_price: 4.8     # 非思考/思考模式价格相同
+    currency: CNY
+    price_source: "https://help.aliyun.com/zh/model-studio/model-pricing"
+    price_date: "2026-07-04"
+
+  - id: qwen3-32b
+    litellm: dashscope/qwen3-32b
+    family: qwen-open
+    tier: s-dense
+    open_weight: true
+    input_price: 2.0
+    output_price: 8.0     # 非思考模式价。本模型实际以enable_thinking=false运行(DashScope非流式
+                          # 接口限制,见run_matrix.py MODELS_NEEDING_NO_THINKING),计价口径须与
+                          # 运行模式一致;思考模式价20元不适用。2026-07-04 Fable审查修正。
+    currency: CNY
+    price_source: "https://help.aliyun.com/zh/model-studio/model-pricing"
+    price_date: "2026-07-04"
+
+  # 同底座思考开关对照(RQ2/RQ4辅助)
+  - id: qwen3-235b-instruct
+    litellm: dashscope/qwen3-235b-a22b-instruct-2507
+    family: qwen-open
+    tier: xl-nothink
+    open_weight: true
+    input_price: 2.0     # 该模型仅支持非思考模式,无思考档
+    output_price: 8.0
+    currency: CNY
+    price_source: "https://help.aliyun.com/zh/model-studio/model-pricing"
+    price_date: "2026-07-04"
+
+  - id: qwen3-235b-thinking
+    litellm: dashscope/qwen3-235b-a22b-thinking-2507
+    family: qwen-open
+    tier: xl-think
+    open_weight: true
+    input_price: 2.0     # 该模型仅支持思考模式,无非思考档
+    output_price: 20.0
+    currency: CNY
+    price_source: "https://help.aliyun.com/zh/model-studio/model-pricing"
+    price_date: "2026-07-04"
+
+# RQ4:思考预算扫描(主矩阵之外单独跑)
+thinking_budget_sweep:
+  model: dashscope/qwen3.6-flash
+  budgets: [0, 1024, 4096, 16384]   # thinking_budget参数值;0=关思考(enable_thinking=false)
+  domain: airline                    # 单域即可,控制成本
+
+benchmarks:
+  tau2:
+    domains: [airline, retail, telecom]
+    num_trials: 1
+    anchor_models: [deepseek-v4-flash, qwen3.7-plus]  # 这两个模型跑3个trial估方差。
+      # 2026-07-04 Fable审查修正:原锚定qwen3.7-max单价过高(12/36元,3trial占总预算60%),
+      # 方差估计不依赖具体型号,换成便宜4.5倍的qwen3.7-plus;max保留在主矩阵跑1 trial。
+    anchor_trials: 3
+  bfcl:
+    categories: [multi_turn_base, multi_turn_miss_func, multi_turn_miss_param, multi_turn_long_context]
+    status: pending_integration   # qwen接入方式待定,第二阶段
+
+# 价格核实结论(2026-07-04,全部13个模型均已查到官方牌价,无待定项):
+# - DeepSeek 2个模型:api-docs.deepseek.com官方定价页,USD,cache-miss价,置信度高。
+# - Qwen 11个模型(含thinking_budget_sweep复用的qwen3.6-flash):help.aliyun.com官方定价页,
+#   CNY,华北2(北京)区域标准价(非Batch、无缓存折扣),置信度高。注意:
+#   (1) qwen3.6-flash/qwen3.5-35b-a3b/qwen3.7-plus为阶梯计费,本表填最低档(第一档)单价,
+#       若单任务prompt超过该档上限(256K或128K),实际单价会更高,任务4预估时按此口径可能轻微低估;
+#   (2) qwen3.7-max/qwen3.5系列/qwen3-32b等模型的"非思考"与"思考"输出价相同或已合并为一档,
+#       qwen3-32b是例外(非思考8元 vs 思考20元,已按思考模式填20元,与本项目默认开启思考的口径一致);
+#   (3) 页面标注的输出价"思维链+回答"口径与models.yaml注释里"output_price含思考token"的口径一致。
+# - 未查到官方价、需要保持null的模型:无。

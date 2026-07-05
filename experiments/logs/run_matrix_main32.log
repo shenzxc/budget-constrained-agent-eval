@@ -1,0 +1,67 @@
+共 36 条(域,模型)任务待处理。user_llm=deepseek/deepseek-v4-flash, max_concurrency=32, dry_run=False
+域任务数: {'airline': 50, 'retail': 114, 'telecom': 114}
+--------------------------------------------------------------------------------
+[SKIP] airline/deepseek-v4-flash: 已完整: 150/150 simulations
+[SKIP] retail/deepseek-v4-flash: 已完整: 342/342 simulations
+[SKIP] telecom/deepseek-v4-flash: 已完整: 342/342 simulations
+[RUN] airline/deepseek-v4-pro (trials=1, save_to=airline_deepseek_deepseek-v4-pro) :: 未跑完: 46/50 simulations,将用--auto-resume续跑
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain airline --agent-llm deepseek/deepseek-v4-pro --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to airline_deepseek_deepseek-v4-pro --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/deepseek-v4-pro_airline.log
+[RUN] retail/deepseek-v4-pro (trials=1, save_to=retail_deepseek_deepseek-v4-pro) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain retail --agent-llm deepseek/deepseek-v4-pro --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to retail_deepseek_deepseek-v4-pro --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/deepseek-v4-pro_retail.log
+[RUN] telecom/deepseek-v4-pro (trials=1, save_to=telecom_deepseek_deepseek-v4-pro) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain telecom --agent-llm deepseek/deepseek-v4-pro --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to telecom_deepseek_deepseek-v4-pro --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/deepseek-v4-pro_telecom.log
+[RUN] airline/qwen3.7-max (trials=1, save_to=airline_dashscope_qwen3.7-max) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain airline --agent-llm dashscope/qwen3.7-max --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to airline_dashscope_qwen3.7-max --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.7-max_airline.log
+[RUN] retail/qwen3.7-max (trials=1, save_to=retail_dashscope_qwen3.7-max) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain retail --agent-llm dashscope/qwen3.7-max --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to retail_dashscope_qwen3.7-max --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.7-max_retail.log
+[RUN] telecom/qwen3.7-max (trials=1, save_to=telecom_dashscope_qwen3.7-max) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain telecom --agent-llm dashscope/qwen3.7-max --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to telecom_dashscope_qwen3.7-max --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.7-max_telecom.log
+[RUN] airline/qwen3.7-plus (trials=3, save_to=airline_dashscope_qwen3.7-plus) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain airline --agent-llm dashscope/qwen3.7-plus --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 3 --max-concurrency 32 --save-to airline_dashscope_qwen3.7-plus --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.7-plus_airline.log
+[RUN] retail/qwen3.7-plus (trials=3, save_to=retail_dashscope_qwen3.7-plus) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain retail --agent-llm dashscope/qwen3.7-plus --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 3 --max-concurrency 32 --save-to retail_dashscope_qwen3.7-plus --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.7-plus_retail.log
+[RUN] telecom/qwen3.7-plus (trials=3, save_to=telecom_dashscope_qwen3.7-plus) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain telecom --agent-llm dashscope/qwen3.7-plus --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 3 --max-concurrency 32 --save-to telecom_dashscope_qwen3.7-plus --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.7-plus_telecom.log
+[RUN] airline/qwen3.6-flash (trials=1, save_to=airline_dashscope_qwen3.6-flash) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain airline --agent-llm dashscope/qwen3.6-flash --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to airline_dashscope_qwen3.6-flash --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.6-flash_airline.log
+[RUN] retail/qwen3.6-flash (trials=1, save_to=retail_dashscope_qwen3.6-flash) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain retail --agent-llm dashscope/qwen3.6-flash --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to retail_dashscope_qwen3.6-flash --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.6-flash_retail.log
+[RUN] telecom/qwen3.6-flash (trials=1, save_to=telecom_dashscope_qwen3.6-flash) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain telecom --agent-llm dashscope/qwen3.6-flash --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to telecom_dashscope_qwen3.6-flash --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.6-flash_telecom.log
+[RUN] airline/qwen3.5-397b-a17b (trials=1, save_to=airline_dashscope_qwen3.5-397b-a17b) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain airline --agent-llm dashscope/qwen3.5-397b-a17b --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to airline_dashscope_qwen3.5-397b-a17b --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.5-397b-a17b_airline.log
+[RUN] retail/qwen3.5-397b-a17b (trials=1, save_to=retail_dashscope_qwen3.5-397b-a17b) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain retail --agent-llm dashscope/qwen3.5-397b-a17b --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to retail_dashscope_qwen3.5-397b-a17b --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.5-397b-a17b_retail.log
+[RUN] telecom/qwen3.5-397b-a17b (trials=1, save_to=telecom_dashscope_qwen3.5-397b-a17b) :: 结果文件不存在
+    cwd=/Users/shenweiming/Projects/论文/experiments/tau2-bench
+    cmd=uv run tau2 run --domain telecom --agent-llm dashscope/qwen3.5-397b-a17b --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to telecom_dashscope_qwen3.5-397b-a17b --auto-resume
+    log=/Users/shenweiming/Projects/论文/experiments/logs/qwen3.5-397b-a17b_telecom.log
+[RUN] airline/qwen3.5-122b-a10b (trials=1, save_to=airline_dashscope_qwen3.5-122b-a10b) :: 结果文件不存在

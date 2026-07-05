@@ -1,0 +1,1688 @@
+
+
+===== run_matrix.py invocation: uv run tau2 run --domain airline --agent-llm deepseek/deepseek-v4-pro --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 8 --save-to airline_deepseek_deepseek-v4-pro --auto-resume =====
+2026-07-04 15:27:56.606 | INFO     | tau2.utils.utils:<module>:28 - Using data directory from source: /Users/shenweiming/Projects/论文/experiments/tau2-bench/data
+2026-07-04 15:28:00.176 | INFO     | tau2.utils.llm_utils:<module>:102 - LiteLLM: Cache is disabled
+2026-07-04 15:28:00.325 | DEBUG    | tau2.registry:<module>:281 - Registering default components...
+2026-07-04 15:28:00.329 | DEBUG    | tau2.registry:<module>:292 - Voice dependencies not installed, skipping voice user registration
+2026-07-04 15:28:00.330 | DEBUG    | tau2.registry:<module>:350 - Default components registered successfully. Registry info: {
+  "domains": [
+    "mock",
+    "airline",
+    "retail",
+    "telecom",
+    "telecom-workflow",
+    "banking_knowledge"
+  ],
+  "agents": [
+    "llm_agent",
+    "llm_agent_gt",
+    "llm_agent_solo",
+    "discrete_time_audio_native_agent"
+  ],
+  "users": [
+    "user_simulator",
+    "dummy_user"
+  ],
+  "task_sets": [
+    "mock",
+    "airline",
+    "retail",
+    "telecom_full",
+    "telecom_small",
+    "telecom",
+    "telecom-workflow",
+    "banking_knowledge"
+  ]
+}
+╭────────────────────────── Simulation Configuration ──────────────────────────╮
+│ Domain: airline  Task Set: Default  Tasks: All                               │
+│ Trials: 1  Max Steps: 200  Max Errors: 10                                    │
+│                                                                              │
+│ Agent: llm_agent → deepseek/deepseek-v4-pro                                  │
+│ User:  user_simulator → deepseek/deepseek-v4-flash                           │
+│                                                                              │
+│ Save: airline_deepseek_deepseek-v4-pro  Concurrency: 8  Verbose: False       │
+╰──────────────────────────────────────────────────────────────────────────────╯
+0/50 (trial 1/1). Running task 0, trial 1
+1/50 (trial 1/1). Running task 1, trial 1
+3/50 (trial 1/1). Running task 3, trial 1
+4/50 (trial 1/1). Running task 4, trial 1
+2/50 (trial 1/1). Running task 2, trial 1
+6/50 (trial 1/1). Running task 6, trial 1
+7/50 (trial 1/1). Running task 7, trial 1
+5/50 (trial 1/1). Running task 5, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 3                                                                   │
+│ Trial: 0                                                                     │
+│ Duration: 26.35s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0013                                                          │
+│ User Cost: $0.0003                                                           │
+│ Reward: ❌ 0.0000 (COMMUNICATE: 0.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ❌ 0.0                             │
+│ - 1: agent get_user_details [read] ✅ 1.0                                    │
+│                                                                              │
+│ Partial Action Reward: 1/2 (50.0%)                                           │
+│   Read:  1/2 (50.0%)                                                         │
+│                                                                              │
+│ Communicate Checks:                                                          │
+│ - 0: 4 ❌                                                                    │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: None                                                            │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+8/50 (trial 1/1). Running task 8, trial 1
+Status: 1/50 complete. Avg reward: 0.00 (N=1). 8 running: 0.0(30s), 2.0(30s), 
+1.0(30s), 4.0(30s), 6.0(30s), 7.0(30s), 5.0(30s), 8.0(1s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 0                                                                   │
+│ Trial: 0                                                                     │
+│ Duration: 45.54s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0025                                                          │
+│ User Cost: $0.0003                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: {'note': 'No actions to evaluate'}                                   │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+9/50 (trial 1/1). Running task 9, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 6                                                                   │
+│ Trial: 0                                                                     │
+│ Duration: 49.79s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0025                                                          │
+│ User Cost: $0.0005                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Read:  1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+10/50 (trial 1/1). Running task 10, trial 1
+Status: 3/50 complete. Avg reward: 0.67 (N=3). 8 running: 2.0(60s), 1.0(60s), 
+4.0(60s), 7.0(60s), 5.0(60s), 8.0(31s), 9.0(13s), 10.0(7s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 1                                                                   │
+│ Trial: 0                                                                     │
+│ Duration: 63.50s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0051                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 2/2 (100.0%)                                          │
+│   Read:  2/2 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+11/50 (trial 1/1). Running task 11, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 2                                                                   │
+│ Trial: 0                                                                     │
+│ Duration: 74.10s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0047                                                          │
+│ User Cost: $0.0007                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 2: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 3/3 (100.0%)                                          │
+│   Read:  3/3 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+12/50 (trial 1/1). Running task 12, trial 1
+Status: 5/50 complete. Avg reward: 0.80 (N=5). 8 running: 4.0(90s), 7.0(90s), 
+5.0(90s), 8.0(61s), 9.0(43s), 10.0(37s), 11.0(24s), 12.0(13s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 7                                                                   │
+│ Trial: 0                                                                     │
+│ Duration: 97.19s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0094                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ❌ 0.0000 (COMMUNICATE: 0.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 2: agent update_reservation_flights [write] ✅ 1.0                         │
+│ - 3: agent cancel_reservation [write] ✅ 1.0                                 │
+│ - 4: agent cancel_reservation [write] ✅ 1.0                                 │
+│                                                                              │
+│ Partial Action Reward: 5/5 (100.0%)                                          │
+│   Read:  2/2 (100.0%)                                                        │
+│   Write: 3/3 (100.0%)                                                        │
+│                                                                              │
+│ Communicate Checks:                                                          │
+│ - 0: 1628 ❌                                                                 │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: None                                                            │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+13/50 (trial 1/1). Running task 13, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 5                                                                   │
+│ Trial: 0                                                                     │
+│ Duration: 101.03s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0061                                                          │
+│ User Cost: $0.0008                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Read:  1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 8                                                                   │
+│ Trial: 0                                                                     │
+│ Duration: 74.09s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0061                                                          │
+│ User Cost: $0.0006                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 2: agent search_direct_flight [read] ✅ 1.0                                │
+│ - 3: agent book_reservation [write] ✅ 1.0                                   │
+│                                                                              │
+│ Partial Action Reward: 4/4 (100.0%)                                          │
+│   Read:  3/3 (100.0%)                                                        │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+14/50 (trial 1/1). Running task 14, trial 1
+15/50 (trial 1/1). Running task 15, trial 1
+Status: 8/50 complete. Avg reward: 0.75 (N=8). 8 running: 4.0(120s), 9.0(73s), 
+10.0(67s), 11.0(54s), 12.0(43s), 13.0(20s), 14.0(15s), 15.0(15s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 12                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 63.91s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0046                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 1: agent search_direct_flight [read] ✅ 1.0                                │
+│ - 2: agent search_direct_flight [read] ✅ 1.0                                │
+│ - 3: agent calculate [generic] ❌ 0.0                                        │
+│ - 4: agent update_reservation_baggages [write] ✅ 1.0                        │
+│                                                                              │
+│ Partial Action Reward: 4/5 (80.0%)                                           │
+│   Read:  3/3 (100.0%)                                                        │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 13                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 41.14s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0026                                                          │
+│ User Cost: $0.0002                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent transfer_to_human_agents [generic] ✅ 1.0                         │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+16/50 (trial 1/1). Running task 16, trial 1
+17/50 (trial 1/1). Running task 17, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 9                                                                   │
+│ Trial: 0                                                                     │
+│ Duration: 99.85s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0077                                                          │
+│ User Cost: $0.0006                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent search_direct_flight [read] ✅ 1.0                                │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Read:  1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+18/50 (trial 1/1). Running task 18, trial 1
+Status: 11/50 complete. Avg reward: 0.82 (N=11). 8 running: 4.0(150s), 
+10.0(97s), 11.0(84s), 14.0(45s), 15.0(45s), 16.0(6s), 17.0(6s), 18.0(2s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 11                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 86.88s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0059                                                          │
+│ User Cost: $0.0005                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent update_reservation_flights [write] ✅ 1.0                         │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Communicate Checks:                                                          │
+│ - 0: 5244 ✅                                                                 │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: None                                                            │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+19/50 (trial 1/1). Running task 19, trial 1
+/Users/shenweiming/.local/share/uv/python/cpython-3.12.13-macos-x86_64-none/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+
+
+===== run_matrix.py invocation: uv run tau2 run --domain airline --agent-llm deepseek/deepseek-v4-pro --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 16 --save-to airline_deepseek_deepseek-v4-pro --auto-resume =====
+2026-07-04 15:31:14.692 | INFO     | tau2.utils.utils:<module>:28 - Using data directory from source: /Users/shenweiming/Projects/论文/experiments/tau2-bench/data
+2026-07-04 15:31:18.240 | INFO     | tau2.utils.llm_utils:<module>:102 - LiteLLM: Cache is disabled
+2026-07-04 15:31:18.400 | DEBUG    | tau2.registry:<module>:281 - Registering default components...
+2026-07-04 15:31:18.404 | DEBUG    | tau2.registry:<module>:292 - Voice dependencies not installed, skipping voice user registration
+2026-07-04 15:31:18.406 | DEBUG    | tau2.registry:<module>:350 - Default components registered successfully. Registry info: {
+  "domains": [
+    "mock",
+    "airline",
+    "retail",
+    "telecom",
+    "telecom-workflow",
+    "banking_knowledge"
+  ],
+  "agents": [
+    "llm_agent",
+    "llm_agent_gt",
+    "llm_agent_solo",
+    "discrete_time_audio_native_agent"
+  ],
+  "users": [
+    "user_simulator",
+    "dummy_user"
+  ],
+  "task_sets": [
+    "mock",
+    "airline",
+    "retail",
+    "telecom_full",
+    "telecom_small",
+    "telecom",
+    "telecom-workflow",
+    "banking_knowledge"
+  ]
+}
+╭────────────────────────── Simulation Configuration ──────────────────────────╮
+│ Domain: airline  Task Set: Default  Tasks: All                               │
+│ Trials: 1  Max Steps: 200  Max Errors: 10                                    │
+│                                                                              │
+│ Agent: llm_agent → deepseek/deepseek-v4-pro                                  │
+│ User:  user_simulator → deepseek/deepseek-v4-flash                           │
+│                                                                              │
+│ Save: airline_deepseek_deepseek-v4-pro  Concurrency: 16  Verbose: False      │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Resuming run from 12 runs. 38 runs remaining.
+Skipping task 0, trial 1 because it has already been run.
+Skipping task 1, trial 1 because it has already been run.
+Skipping task 2, trial 1 because it has already been run.
+Skipping task 3, trial 1 because it has already been run.
+Skipping task 5, trial 1 because it has already been run.
+Skipping task 6, trial 1 because it has already been run.
+Skipping task 7, trial 1 because it has already been run.
+Skipping task 8, trial 1 because it has already been run.
+Skipping task 9, trial 1 because it has already been run.
+Skipping task 11, trial 1 because it has already been run.
+Skipping task 12, trial 1 because it has already been run.
+Skipping task 13, trial 1 because it has already been run.
+4/50 (trial 1/1). Running task 4, trial 1
+14/50 (trial 1/1). Running task 14, trial 1
+10/50 (trial 1/1). Running task 10, trial 1
+17/50 (trial 1/1). Running task 17, trial 1
+18/50 (trial 1/1). Running task 18, trial 1
+15/50 (trial 1/1). Running task 15, trial 1
+16/50 (trial 1/1). Running task 16, trial 1
+19/50 (trial 1/1). Running task 19, trial 1
+22/50 (trial 1/1). Running task 22, trial 1
+23/50 (trial 1/1). Running task 23, trial 1
+21/50 (trial 1/1). Running task 21, trial 1
+20/50 (trial 1/1). Running task 20, trial 1
+24/50 (trial 1/1). Running task 24, trial 1
+25/50 (trial 1/1). Running task 25, trial 1
+26/50 (trial 1/1). Running task 26, trial 1
+27/50 (trial 1/1). Running task 27, trial 1
+Status: 12/50 complete. Avg reward: 0.83 (N=12). 16 running: 4.0(30s), 
+10.0(30s), 14.0(30s), 17.0(30s), 18.0(30s), 15.0(30s), 16.0(30s), 19.0(30s), 
+22.0(30s), 23.0(30s) +6 more
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 26                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 40.83s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0028                                                          │
+│ User Cost: $0.0002                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: {'note': 'No actions to evaluate'}                                   │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+28/50 (trial 1/1). Running task 28, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 19                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 48.41s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0035                                                          │
+│ User Cost: $0.0003                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent cancel_reservation [write] ✅ 1.0                                 │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+29/50 (trial 1/1). Running task 29, trial 1
+Status: 14/50 complete. Avg reward: 0.86 (N=14). 16 running: 4.0(60s), 
+10.0(60s), 14.0(60s), 17.0(60s), 18.0(60s), 15.0(60s), 16.0(60s), 22.0(60s), 
+23.0(60s), 21.0(60s) +6 more
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 27                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 71.58s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0069                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Read:  1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 4                                                                   │
+│ Trial: 0                                                                     │
+│ Duration: 75.28s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0052                                                          │
+│ User Cost: $0.0003                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 2: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 3: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 4: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 5: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 6/6 (100.0%)                                          │
+│   Read:  6/6 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+30/50 (trial 1/1). Running task 30, trial 1
+31/50 (trial 1/1). Running task 31, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 15                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 78.92s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0077                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent update_reservation_flights [write] ✅ 1.0                         │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+32/50 (trial 1/1). Running task 32, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 22                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 83.92s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0100                                                          │
+│ User Cost: $0.0003                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent update_reservation_flights [write] ✅ 1.0                         │
+│ - 1: agent update_reservation_passengers [write] ✅ 1.0                      │
+│ - 2: agent update_reservation_baggages [write] ✅ 1.0                        │
+│                                                                              │
+│ Partial Action Reward: 3/3 (100.0%)                                          │
+│   Write: 3/3 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+33/50 (trial 1/1). Running task 33, trial 1
+Status: 18/50 complete. Avg reward: 0.89 (N=18). 16 running: 10.0(90s), 
+14.0(90s), 17.0(90s), 18.0(90s), 16.0(90s), 23.0(90s), 21.0(90s), 20.0(90s), 
+24.0(89s), 25.0(89s) +6 more
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 25                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 87.86s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0069                                                          │
+│ User Cost: $0.0006                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent book_reservation [write] ✅ 1.0                                   │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 16                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 88.58s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0082                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent update_reservation_flights [write] ✅ 1.0                         │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+34/50 (trial 1/1). Running task 34, trial 1
+35/50 (trial 1/1). Running task 35, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 20                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 95.94s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0111                                                          │
+│ User Cost: $0.0006                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent book_reservation [write] ✅ 1.0                                   │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+36/50 (trial 1/1). Running task 36, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 24                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 103.50s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0091                                                          │
+│ User Cost: $0.0006                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent book_reservation [write] ✅ 1.0                                   │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+37/50 (trial 1/1). Running task 37, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 21                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 107.13s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0103                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent update_reservation_flights [write] ✅ 1.0                         │
+│ - 1: agent update_reservation_baggages [write] ✅ 1.0                        │
+│                                                                              │
+│ Partial Action Reward: 2/2 (100.0%)                                          │
+│   Write: 2/2 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 28                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 65.08s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0029                                                          │
+│ User Cost: $0.0006                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: {'note': 'No actions to evaluate'}                                   │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+38/50 (trial 1/1). Running task 38, trial 1
+39/50 (trial 1/1). Running task 39, trial 1
+Status: 24/50 complete. Avg reward: 0.92 (N=24). 16 running: 10.0(120s), 
+14.0(120s), 17.0(120s), 18.0(120s), 23.0(120s), 29.0(67s), 30.0(42s), 31.0(42s),
+32.0(38s), 33.0(33s) +6 more
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 31                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 45.02s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0030                                                          │
+│ User Cost: $0.0002                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: {'note': 'No actions to evaluate'}                                   │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+40/50 (trial 1/1). Running task 40, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 14                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 139.73s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0131                                                          │
+│ User Cost: $0.0007                                                           │
+│ Reward: ❌ 0.0000 (COMMUNICATE: 0.0, DB: 0.0)                                │
+│                                                                              │
+│ DB Check:❌ 0.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent cancel_reservation [write] ✅ 1.0                                 │
+│ - 1: agent book_reservation [write] ❌ 0.0                                   │
+│                                                                              │
+│ Partial Action Reward: 1/2 (50.0%)                                           │
+│   Write: 1/2 (50.0%)                                                         │
+│                                                                              │
+│ Communicate Checks:                                                          │
+│ - 0: 327 ✅                                                                  │
+│ - 1: 1000 ✅                                                                 │
+│ - 2: 1786 ❌                                                                 │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: None                                                            │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+41/50 (trial 1/1). Running task 41, trial 1
+Status: 26/50 complete. Avg reward: 0.88 (N=26). 16 running: 10.0(150s), 
+17.0(150s), 18.0(150s), 23.0(150s), 29.0(98s), 30.0(72s), 32.0(68s), 33.0(63s), 
+34.0(57s), 35.0(56s) +6 more
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 36                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 54.82s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0029                                                          │
+│ User Cost: $0.0002                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Read:  1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 40                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 32.19s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0022                                                          │
+│ User Cost: $0.0002                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 1: agent update_reservation_passengers [write] ✅ 1.0                      │
+│                                                                              │
+│ Partial Action Reward: 2/2 (100.0%)                                          │
+│   Read:  1/1 (100.0%)                                                        │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 30                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 78.87s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0054                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 1: agent search_direct_flight [read] ✅ 1.0                                │
+│ - 2: agent update_reservation_flights [write] ✅ 1.0                         │
+│                                                                              │
+│ Partial Action Reward: 3/3 (100.0%)                                          │
+│   Read:  2/2 (100.0%)                                                        │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+42/50 (trial 1/1). Running task 42, trial 1
+43/50 (trial 1/1). Running task 43, trial 1
+44/50 (trial 1/1). Running task 44, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 34                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 77.94s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0048                                                          │
+│ User Cost: $0.0006                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: {'note': 'No actions to evaluate'}                                   │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+45/50 (trial 1/1). Running task 45, trial 1
+Status: 30/50 complete. Avg reward: 0.90 (N=30). 16 running: 10.0(180s), 
+17.0(180s), 18.0(180s), 23.0(180s), 29.0(128s), 32.0(98s), 33.0(93s), 35.0(86s),
+37.0(72s), 38.0(67s) +6 more
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 32                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 109.03s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0083                                                          │
+│ User Cost: $0.0005                                                           │
+│ Reward: ❌ 0.0000 (COMMUNICATE: 1.0, DB: 0.0)                                │
+│                                                                              │
+│ DB Check:❌ 0.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 2: agent search_direct_flight [read] ✅ 1.0                                │
+│ - 3: agent update_reservation_flights [write] ❌ 0.0                         │
+│ - 4: agent update_reservation_flights [write] ❌ 0.0                         │
+│                                                                              │
+│ Partial Action Reward: 3/5 (60.0%)                                           │
+│   Read:  3/3 (100.0%)                                                        │
+│   Write: 0/2 (0.0%)                                                          │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 18                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 190.22s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0258                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ❌ 0.0000 (COMMUNICATE: 1.0, DB: 0.0)                                │
+│                                                                              │
+│ DB Check:❌ 0.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent update_reservation_flights [write] ✅ 1.0                         │
+│ - 1: agent update_reservation_flights [write] ✅ 1.0                         │
+│ - 2: agent update_reservation_flights [write] ✅ 1.0                         │
+│ - 3: agent update_reservation_flights [write] ✅ 1.0                         │
+│ - 4: agent update_reservation_flights [write] ✅ 1.0                         │
+│                                                                              │
+│ Partial Action Reward: 5/5 (100.0%)                                          │
+│   Write: 5/5 (100.0%)                                                        │
+│                                                                              │
+│ Communicate Checks:                                                          │
+│ - 0: 23553 ✅                                                                │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: None                                                            │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 39                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 79.38s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0075                                                          │
+│ User Cost: $0.0003                                                           │
+│ Reward: ❌ 0.0000 (COMMUNICATE: 1.0, DB: 0.0)                                │
+│                                                                              │
+│ DB Check:❌ 0.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 2: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 3: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 4: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 5: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 6: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 7: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 8: agent cancel_reservation [write] ❌ 0.0                                 │
+│ - 9: agent cancel_reservation [write] ❌ 0.0                                 │
+│ - 10: agent cancel_reservation [write] ❌ 0.0                                │
+│                                                                              │
+│ Partial Action Reward: 8/11 (72.7%)                                          │
+│   Read:  8/8 (100.0%)                                                        │
+│   Write: 0/3 (0.0%)                                                          │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+46/50 (trial 1/1). Running task 46, trial 1
+47/50 (trial 1/1). Running task 47, trial 1
+48/50 (trial 1/1). Running task 48, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 33                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 115.94s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0068                                                          │
+│ User Cost: $0.0010                                                           │
+│ Reward: ❌ 0.0000 (COMMUNICATE: 1.0, DB: 0.0)                                │
+│                                                                              │
+│ DB Check:❌ 0.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 1: agent search_direct_flight [read] ✅ 1.0                                │
+│ - 2: agent search_direct_flight [read] ❌ 0.0                                │
+│ - 3: agent update_reservation_flights [write] ✅ 1.0                         │
+│ - 4: agent update_reservation_baggages [write] ❌ 0.0                        │
+│                                                                              │
+│ Partial Action Reward: 3/5 (60.0%)                                           │
+│   Read:  2/3 (66.7%)                                                         │
+│   Write: 1/2 (50.0%)                                                         │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+49/50 (trial 1/1). Running task 49, trial 1
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 41                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 64.55s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0065                                                          │
+│ User Cost: $0.0002                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 2: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 3: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 4: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 5: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 6: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 7: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 8/8 (100.0%)                                          │
+│   Read:  8/8 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Status: 35/50 complete. Avg reward: 0.80 (N=35). 15 running: 10.0(210s), 
+17.0(210s), 23.0(210s), 29.0(158s), 35.0(116s), 37.0(102s), 38.0(97s), 
+42.0(51s), 43.0(51s), 44.0(51s) +5 more
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 35                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 118.42s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0098                                                          │
+│ User Cost: $0.0009                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent book_reservation [write] ✅ 1.0                                   │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 38                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 103.58s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0059                                                          │
+│ User Cost: $0.0007                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 2/2 (100.0%)                                          │
+│   Read:  2/2 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 23                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 216.10s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0190                                                          │
+│ User Cost: $0.0011                                                           │
+│ Reward: ❌ 0.0000 (COMMUNICATE: 1.0, DB: 0.0)                                │
+│                                                                              │
+│ DB Check:❌ 0.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent cancel_reservation [write] ✅ 1.0                                 │
+│ - 1: agent book_reservation [write] ❌ 0.0                                   │
+│ - 2: agent book_reservation [write] ❌ 0.0                                   │
+│ - 3: agent book_reservation [write] ❌ 0.0                                   │
+│                                                                              │
+│ Partial Action Reward: 1/4 (25.0%)                                           │
+│   Write: 1/4 (25.0%)                                                         │
+│                                                                              │
+│ Communicate Checks:                                                          │
+│ - 0: 327 ✅                                                                  │
+│ - 1: 1000 ✅                                                                 │
+│ - 2: 1286 ✅                                                                 │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: None                                                            │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 37                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 116.47s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0094                                                          │
+│ User Cost: $0.0006                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 1: agent search_direct_flight [read] ✅ 1.0                                │
+│ - 2: agent search_direct_flight [read] ✅ 1.0                                │
+│ - 3: agent update_reservation_flights [write] ✅ 1.0                         │
+│                                                                              │
+│ Partial Action Reward: 4/4 (100.0%)                                          │
+│   Read:  3/3 (100.0%)                                                        │
+│   Write: 1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 43                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 70.45s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0052                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 2: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 3: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 4: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 5: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 6/6 (100.0%)                                          │
+│   Read:  6/6 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Status: 40/50 complete. Avg reward: 0.80 (N=40). 10 running: 10.0(240s), 
+17.0(240s), 29.0(188s), 42.0(81s), 44.0(81s), 45.0(67s), 46.0(46s), 47.0(46s), 
+48.0(45s), 49.0(36s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 10                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 239.11s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0170                                                          │
+│ User Cost: $0.0011                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: {'note': 'No actions to evaluate'}                                   │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 42                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 84.57s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0068                                                          │
+│ User Cost: $0.0006                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 2: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 3: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 4: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 5: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 6: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 7: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 8: agent cancel_reservation [write] ✅ 1.0                                 │
+│ - 9: agent cancel_reservation [write] ✅ 1.0                                 │
+│                                                                              │
+│ Partial Action Reward: 10/10 (100.0%)                                        │
+│   Read:  8/8 (100.0%)                                                        │
+│   Write: 2/2 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 49                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 40.46s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0023                                                          │
+│ User Cost: $0.0003                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Read:  1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 48                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 73.20s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0037                                                          │
+│ User Cost: $0.0006                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Read:  1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Status: 44/50 complete. Avg reward: 0.82 (N=44). 6 running: 17.0(270s), 
+29.0(218s), 44.0(111s), 45.0(97s), 46.0(76s), 47.0(76s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 47                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 80.39s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0039                                                          │
+│ User Cost: $0.0005                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Read:  1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Status: 45/50 complete. Avg reward: 0.82 (N=45). 5 running: 17.0(300s), 
+29.0(248s), 44.0(141s), 45.0(127s), 46.0(106s)
+Status: 45/50 complete. Avg reward: 0.82 (N=45). 5 running: 17.0(330s), 
+29.0(278s), 44.0(171s), 45.0(157s), 46.0(136s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 44                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 190.04s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0164                                                          │
+│ User Cost: $0.0012                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_user_details [read] ✅ 1.0                                    │
+│ - 1: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 2: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 3: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 4: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 5: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 6: agent search_direct_flight [read] ✅ 1.0                                │
+│ - 7: agent search_direct_flight [read] ✅ 1.0                                │
+│ - 8: agent search_direct_flight [read] ❌ 0.0                                │
+│ - 9: agent search_direct_flight [read] ✅ 1.0                                │
+│ - 10: agent search_direct_flight [read] ✅ 1.0                               │
+│ - 11: agent search_direct_flight [read] ❌ 0.0                               │
+│ - 12: agent search_direct_flight [read] ✅ 1.0                               │
+│ - 13: agent search_direct_flight [read] ✅ 1.0                               │
+│ - 14: agent search_direct_flight [read] ✅ 1.0                               │
+│ - 15: agent search_direct_flight [read] ✅ 1.0                               │
+│ - 16: agent update_reservation_flights [write] ✅ 1.0                        │
+│ - 17: agent update_reservation_flights [write] ✅ 1.0                        │
+│ - 18: agent update_reservation_flights [write] ✅ 1.0                        │
+│                                                                              │
+│ Partial Action Reward: 17/19 (89.5%)                                         │
+│   Read:  14/16 (87.5%)                                                       │
+│   Write: 3/3 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Status: 46/50 complete. Avg reward: 0.83 (N=46). 4 running: 17.0(360s), 
+29.0(308s), 45.0(187s), 46.0(166s)
+Status: 46/50 complete. Avg reward: 0.83 (N=46). 4 running: 17.0(390s), 
+29.0(338s), 45.0(217s), 46.0(196s)
+/Users/shenweiming/.local/share/uv/python/cpython-3.12.13-macos-x86_64-none/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+
+
+===== run_matrix.py invocation: uv run tau2 run --domain airline --agent-llm deepseek/deepseek-v4-pro --agent-llm-args {"temperature": 0.0} --user-llm deepseek/deepseek-v4-flash --num-trials 1 --max-concurrency 32 --save-to airline_deepseek_deepseek-v4-pro --auto-resume =====
+2026-07-04 15:38:19.480 | INFO     | tau2.utils.utils:<module>:28 - Using data directory from source: /Users/shenweiming/Projects/论文/experiments/tau2-bench/data
+2026-07-04 15:38:22.874 | INFO     | tau2.utils.llm_utils:<module>:102 - LiteLLM: Cache is disabled
+2026-07-04 15:38:23.025 | DEBUG    | tau2.registry:<module>:281 - Registering default components...
+2026-07-04 15:38:23.030 | DEBUG    | tau2.registry:<module>:292 - Voice dependencies not installed, skipping voice user registration
+2026-07-04 15:38:23.032 | DEBUG    | tau2.registry:<module>:350 - Default components registered successfully. Registry info: {
+  "domains": [
+    "mock",
+    "airline",
+    "retail",
+    "telecom",
+    "telecom-workflow",
+    "banking_knowledge"
+  ],
+  "agents": [
+    "llm_agent",
+    "llm_agent_gt",
+    "llm_agent_solo",
+    "discrete_time_audio_native_agent"
+  ],
+  "users": [
+    "user_simulator",
+    "dummy_user"
+  ],
+  "task_sets": [
+    "mock",
+    "airline",
+    "retail",
+    "telecom_full",
+    "telecom_small",
+    "telecom",
+    "telecom-workflow",
+    "banking_knowledge"
+  ]
+}
+╭────────────────────────── Simulation Configuration ──────────────────────────╮
+│ Domain: airline  Task Set: Default  Tasks: All                               │
+│ Trials: 1  Max Steps: 200  Max Errors: 10                                    │
+│                                                                              │
+│ Agent: llm_agent → deepseek/deepseek-v4-pro                                  │
+│ User:  user_simulator → deepseek/deepseek-v4-flash                           │
+│                                                                              │
+│ Save: airline_deepseek_deepseek-v4-pro  Concurrency: 32  Verbose: False      │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Resuming run from 46 runs. 4 runs remaining.
+Skipping task 0, trial 1 because it has already been run.
+Skipping task 1, trial 1 because it has already been run.
+Skipping task 2, trial 1 because it has already been run.
+Skipping task 3, trial 1 because it has already been run.
+Skipping task 4, trial 1 because it has already been run.
+Skipping task 5, trial 1 because it has already been run.
+Skipping task 6, trial 1 because it has already been run.
+Skipping task 7, trial 1 because it has already been run.
+Skipping task 8, trial 1 because it has already been run.
+Skipping task 9, trial 1 because it has already been run.
+Skipping task 10, trial 1 because it has already been run.
+Skipping task 11, trial 1 because it has already been run.
+Skipping task 12, trial 1 because it has already been run.
+Skipping task 13, trial 1 because it has already been run.
+Skipping task 14, trial 1 because it has already been run.
+Skipping task 15, trial 1 because it has already been run.
+Skipping task 16, trial 1 because it has already been run.
+Skipping task 18, trial 1 because it has already been run.
+Skipping task 19, trial 1 because it has already been run.
+Skipping task 20, trial 1 because it has already been run.
+Skipping task 21, trial 1 because it has already been run.
+Skipping task 22, trial 1 because it has already been run.
+Skipping task 23, trial 1 because it has already been run.
+Skipping task 24, trial 1 because it has already been run.
+Skipping task 25, trial 1 because it has already been run.
+Skipping task 26, trial 1 because it has already been run.
+Skipping task 27, trial 1 because it has already been run.
+Skipping task 28, trial 1 because it has already been run.
+Skipping task 30, trial 1 because it has already been run.
+Skipping task 31, trial 1 because it has already been run.
+Skipping task 32, trial 1 because it has already been run.
+Skipping task 33, trial 1 because it has already been run.
+Skipping task 34, trial 1 because it has already been run.
+Skipping task 35, trial 1 because it has already been run.
+Skipping task 36, trial 1 because it has already been run.
+Skipping task 37, trial 1 because it has already been run.
+Skipping task 38, trial 1 because it has already been run.
+Skipping task 39, trial 1 because it has already been run.
+Skipping task 40, trial 1 because it has already been run.
+Skipping task 41, trial 1 because it has already been run.
+Skipping task 42, trial 1 because it has already been run.
+Skipping task 43, trial 1 because it has already been run.
+Skipping task 44, trial 1 because it has already been run.
+Skipping task 47, trial 1 because it has already been run.
+Skipping task 48, trial 1 because it has already been run.
+Skipping task 49, trial 1 because it has already been run.
+17/50 (trial 1/1). Running task 17, trial 1
+29/50 (trial 1/1). Running task 29, trial 1
+45/50 (trial 1/1). Running task 45, trial 1
+46/50 (trial 1/1). Running task 46, trial 1
+Status: 46/50 complete. Avg reward: 0.83 (N=46). 4 running: 17.0(30s), 
+29.0(30s), 45.0(30s), 46.0(30s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 46                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 47.13s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0028                                                          │
+│ User Cost: $0.0002                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: {'note': 'No actions to evaluate'}                                   │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Status: 47/50 complete. Avg reward: 0.83 (N=47). 3 running: 17.0(60s), 
+29.0(60s), 45.0(60s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 45                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 63.58s                                                             │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0038                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│                                                                              │
+│ Partial Action Reward: 1/1 (100.0%)                                          │
+│   Read:  1/1 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Status: 48/50 complete. Avg reward: 0.83 (N=48). 2 running: 17.0(90s), 29.0(90s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 17                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 101.39s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0104                                                          │
+│ User Cost: $0.0004                                                           │
+│ Reward: ✅ 1.0000 (COMMUNICATE: 1.0, DB: 1.0)                                │
+│                                                                              │
+│ DB Check:✅ 1.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent update_reservation_flights [write] ✅ 1.0                         │
+│ - 1: agent update_reservation_passengers [write] ✅ 1.0                      │
+│ - 2: agent update_reservation_baggages [write] ✅ 1.0                        │
+│                                                                              │
+│ Partial Action Reward: 3/3 (100.0%)                                          │
+│   Write: 3/3 (100.0%)                                                        │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Status: 49/50 complete. Avg reward: 0.84 (N=49). 1 running: 29.0(120s)
+Status: 49/50 complete. Avg reward: 0.84 (N=49). 1 running: 29.0(150s)
+╭──────────────────────────── Simulation Overview ─────────────────────────────╮
+│ Task ID: 29                                                                  │
+│ Trial: 0                                                                     │
+│ Duration: 172.64s                                                            │
+│ Mode: half_duplex                                                            │
+│ Termination Reason: TerminationReason.USER_STOP                              │
+│ Agent Cost: $0.0140                                                          │
+│ User Cost: $0.0013                                                           │
+│ Reward: ❌ 0.0000 (COMMUNICATE: 1.0, DB: 0.0)                                │
+│                                                                              │
+│ DB Check:❌ 0.0                                                              │
+│                                                                              │
+│ Action Checks:                                                               │
+│ - 0: agent get_reservation_details [read] ✅ 1.0                             │
+│ - 1: agent cancel_reservation [write] ❌ 0.0                                 │
+│ - 2: agent book_reservation [write] ❌ 0.0                                   │
+│                                                                              │
+│ Partial Action Reward: 1/3 (33.3%)                                           │
+│   Read:  1/1 (100.0%)                                                        │
+│   Write: 0/2 (0.0%)                                                          │
+│                                                                              │
+│ Additional Info:                                                             │
+│ env: None                                                                    │
+│ nl: None                                                                     │
+│ communicate: {'note': 'No communicate_info to evaluate'}                     │
+│ action: None                                                                 │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+Successfully completed all simulations!
+To review the simulations, run: tau2 view
+╭───────────────────────── Agent Performance Metrics ──────────────────────────╮
+│   ═══ Overview ═══                                                           │
+│   Total Simulations         50                                               │
+│   Total Tasks               50                                               │
+│                                                                              │
+│   ═══ Reward Metrics ═══                                                     │
+│   🏆 Average Reward         0.8200                                           │
+│      Pass^1                 0.820                                            │
+│   💰 Avg Cost/Conversation  $0.0072                                          │
+│                                                                              │
+│   ═══ Action Metrics ═══                                                     │
+│   📖 Read Actions           87/91 (95.6%)                                    │
+│   ✏️  Write Actions          37/49 (75.5%)                                    │
+│                                                                              │
+│   ═══ DB Match ═══                                                           │
+│   🗄️  DB Match               ✓ 43 / ✗ 7 (86.0%)                               │
+│                                                                              │
+│   ═══ Authentication ═══                                                     │
+│      Not Checked            50                                               │
+│                                                                              │
+│   ═══ Termination ═══                                                        │
+│   🛑 Normal Stop            50 (👤 50 / 🤖 0)                                │
+│                                                                              │
+│   ═══ LLM Judge Review ═══                                                   │
+│   🤖 Agent Errors           0 errors                                         │
+│      Sims by severity       -                                                │
+│   👤 User Errors            0 errors                                         │
+│      Sims by severity       -                                                │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
