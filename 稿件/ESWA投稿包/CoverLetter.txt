@@ -16,7 +16,7 @@ The manuscript makes the following contributions, which we believe fit the scope
 
 To support reproducibility and reuse, we release the full protocol implementation, all trajectories, per-token cost records, and analysis scripts.
 
-This manuscript is original, has not been published elsewhere, and is not under consideration by any other journal. The author declares no conflict of interest. We suggest reviewers with expertise in LLM-agent evaluation, cost-aware machine learning, and benchmarking methodology.
+This manuscript is original, has not been published elsewhere, and is not under consideration by any other journal. The author declares no conflict of interest. As an independent researcher, I do not hold an institutional e-mail address; my personal e-mail (19708110566@139.com) serves as the corresponding contact. We suggest reviewers with expertise in LLM-agent evaluation, cost-aware machine learning, and benchmarking methodology.
 
 Thank you for your consideration.
 
