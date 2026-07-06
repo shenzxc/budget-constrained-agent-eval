@@ -16,6 +16,8 @@
 %% ---------------------------------------------------------------
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{proposition}{Proposition}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{multirow}
@@ -102,8 +104,9 @@ Our contributions are as follows.
 \label{subsec:problem-formulation}
 Let agent $m$ produce trajectory $\tau(m,x)$ on task $x$, where the $i$-th model call consumes $p_i$ input tokens and $c_i$ output tokens (thinking tokens included, matching API billing). Given list prices $(\alpha_{\mathrm{in}}, \alpha_{\mathrm{out}})$ in USD per million tokens (cache-miss rates), the incremental cost of step $i$ is $\kappa_i = (\alpha_{\mathrm{in}}\, p_i + \alpha_{\mathrm{out}}\, c_i)/10^{6}$ and the cumulative cost is $K_j = \sum_{i \le j} \kappa_i$. The outcome of task $x$ under budget $B$ is
 \begin{equation}
-\mathrm{succ}_B(m,x) = 1 \iff \text{the trajectory terminates naturally, is scored successful, and } K(m,x) \le B.
+\mathrm{succ}_B(m,x) \;=\; \mathbb{1}\!\left[\,\omega(m,x)=1 \;\wedge\; K(m,x)\le B\,\right],
 \end{equation}
+where $\omega(m,x)=1$ denotes that the trajectory terminates naturally and is scored successful by the benchmark.
 \emph{Accounting boundary.} The budget constrains only the evaluated agent's own calls; the user simulator and the judge are evaluation infrastructure whose costs are reported separately and excluded from $B$. All experiments fix the user simulator (DeepSeek-V4-Flash) and judge (DeepSeek-V4-Pro) to keep models strictly comparable.
 
 \subsection{Deriving Full Curves from Single Runs}
@@ -219,22 +222,73 @@ Cost equals token counts times official list prices (cache-miss rates, verified 
 % AUBC with 95\% CI, budget-at-50/80\% success in USD).
 \caption{Main results across the model matrix and tau2-bench domains.}
 \label{tab:table1-main}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{l l r r r c r r}
 \toprule
 Model & Domain & $n_{\text{valid}}$ & pass@1 & Mean cost (USD) & AUBC [95\% CI] & $B_{@50}$ (USD) & $B_{@80}$ (USD) \\
 \midrule
-%TODO: populate data rows from table1_main.csv, e.g.:
-%TODO: deepseek-v4-flash & airline & 150 & 0.8000 & 0.010109 & 0.5156 [0.4732, 0.5575] & 0.009984 & 0.031032 \\
-%TODO: deepseek-v4-flash & retail  & 342 & 0.8216 & 0.010543 & 0.5354 [0.5089, 0.5619] & 0.011521 & 0.021049 \\
-%TODO: deepseek-v4-flash & telecom & 342 & 0.9942 & 0.022311 & 0.5738 [0.5644, 0.5834] & 0.020661 & 0.031118 \\
-%TODO: ... (remaining models: deepseek-v4-pro, qwen3-235b-instruct,
-%TODO:      qwen3-235b-thinking, qwen3-32b, qwen3.5-122b-a10b,
-%TODO:      qwen3.5-27b, qwen3.5-35b-a3b, qwen3.5-397b-a17b,
-%TODO:      qwen3.6-flash, qwen3.7-max, qwen3.7-plus; include AVERAGE rows)
-%TODO: consider \multirow for model names spanning domain rows, or a
-%TODO: separate summary table restricted to AVERAGE rows for the main text.
+deepseek-v4-flash & airline & 150 & 0.800 & \$0.0101 & 0.516 [0.473, 0.557] & \$0.0100 & \$0.0310 \\
+deepseek-v4-flash & retail & 342 & 0.822 & \$0.0105 & 0.535 [0.509, 0.562] & \$0.0115 & \$0.0210 \\
+deepseek-v4-flash & telecom & 342 & 0.994 & \$0.0223 & 0.574 [0.564, 0.583] & \$0.0207 & \$0.0311 \\
+deepseek-v4-flash & AVERAGE & 278 & 0.872 & \$0.0143 & 0.542 [0.515, 0.568] & \$0.0141 & \$0.0277 \\
+\midrule
+deepseek-v4-pro & airline & 50 & 0.820 & \$0.0303 & 0.393 [0.338, 0.444] & \$0.0272 & \$0.0691 \\
+deepseek-v4-pro & retail & 114 & 0.860 & \$0.0301 & 0.408 [0.376, 0.438] & \$0.0311 & \$0.0461 \\
+deepseek-v4-pro & telecom & 114 & 0.947 & \$0.0642 & 0.375 [0.352, 0.396] & \$0.0628 & \$0.0892 \\
+deepseek-v4-pro & AVERAGE & 92.7 & 0.876 & \$0.0416 & 0.392 [0.356, 0.426] & \$0.0404 & \$0.0681 \\
+\midrule
+qwen3-235b-instruct & airline & 50 & 0.440 & \$0.0248 & 0.241 [0.166, 0.320] & -- & -- \\
+qwen3-235b-instruct & retail & 114 & 0.684 & \$0.0260 & 0.357 [0.311, 0.403] & \$0.0252 & -- \\
+qwen3-235b-instruct & telecom & 114 & 0.509 & \$0.0508 & 0.236 [0.191, 0.280] & \$0.0748 & -- \\
+qwen3-235b-instruct & AVERAGE & 92.7 & 0.544 & \$0.0339 & 0.278 [0.223, 0.334] & \$0.0500 & -- \\
+\midrule
+qwen3-235b-thinking & airline & 50 & 0.640 & \$0.0522 & 0.267 [0.207, 0.322] & \$0.0547 & -- \\
+qwen3-235b-thinking & retail & 114 & 0.737 & \$0.0455 & 0.309 [0.273, 0.345] & \$0.0475 & -- \\
+qwen3-235b-thinking & telecom & 114 & 0.649 & \$0.0866 & 0.240 [0.205, 0.276] & \$0.1063 & -- \\
+qwen3-235b-thinking & AVERAGE & 92.7 & 0.675 & \$0.0615 & 0.272 [0.228, 0.314] & \$0.0695 & -- \\
+\midrule
+qwen3-32b & airline & 50 & 0.100 & \$0.0252 & 0.056 [0.012, 0.106] & -- & -- \\
+qwen3-32b & retail & 114 & 0.561 & \$0.0312 & 0.282 [0.235, 0.329] & \$0.0373 & -- \\
+qwen3-32b & telecom & 114 & 0.263 & \$0.0416 & 0.126 [0.089, 0.165] & -- & -- \\
+qwen3-32b & AVERAGE & 92.7 & 0.308 & \$0.0327 & 0.155 [0.112, 0.200] & \$0.0373 & -- \\
+\midrule
+qwen3.5-122b-a10b & airline & 50 & 0.820 & \$0.0168 & 0.471 [0.406, 0.529] & \$0.0149 & \$0.0355 \\
+qwen3.5-122b-a10b & retail & 114 & 0.807 & \$0.0142 & 0.487 [0.443, 0.532] & \$0.0156 & \$0.0311 \\
+qwen3.5-122b-a10b & telecom & 114 & 0.991 & \$0.0212 & 0.581 [0.563, 0.597] & \$0.0195 & \$0.0294 \\
+qwen3.5-122b-a10b & AVERAGE & 92.7 & 0.873 & \$0.0174 & 0.513 [0.470, 0.553] & \$0.0167 & \$0.0320 \\
+\midrule
+qwen3.5-27b & airline & 50 & 0.860 & \$0.0113 & 0.545 [0.476, 0.607] & \$0.0100 & \$0.0170 \\
+qwen3.5-27b & retail & 114 & 0.903 & \$0.0109 & 0.589 [0.551, 0.624] & \$0.0105 & \$0.0181 \\
+qwen3.5-27b & telecom & 114 & 0.991 & \$0.0160 & 0.629 [0.610, 0.645] & \$0.0154 & \$0.0213 \\
+qwen3.5-27b & AVERAGE & 92.7 & 0.918 & \$0.0127 & 0.588 [0.546, 0.625] & \$0.0120 & \$0.0188 \\
+\midrule
+qwen3.5-35b-a3b & airline & 50 & 0.580 & \$0.0069 & 0.410 [0.313, 0.505] & \$0.0085 & -- \\
+qwen3.5-35b-a3b & retail & 114 & 0.798 & \$0.0070 & 0.583 [0.526, 0.640] & \$0.0071 & -- \\
+qwen3.5-35b-a3b & telecom & 114 & 1.000 & \$0.0104 & 0.705 [0.691, 0.718] & \$0.0102 & \$0.0133 \\
+qwen3.5-35b-a3b & AVERAGE & 92.7 & 0.793 & \$0.0081 & 0.566 [0.510, 0.621] & \$0.0086 & \$0.0133 \\
+\midrule
+qwen3.5-397b-a17b & airline & 50 & 0.820 & \$0.0244 & 0.424 [0.361, 0.476] & \$0.0208 & \$0.0433 \\
+qwen3.5-397b-a17b & retail & 114 & 0.825 & \$0.0208 & 0.452 [0.413, 0.490] & \$0.0217 & \$0.0385 \\
+qwen3.5-397b-a17b & telecom & 114 & 1.000 & \$0.0291 & 0.526 [0.514, 0.538] & \$0.0294 & \$0.0371 \\
+qwen3.5-397b-a17b & AVERAGE & 92.7 & 0.881 & \$0.0248 & 0.467 [0.429, 0.501] & \$0.0239 & \$0.0396 \\
+\midrule
+qwen3.6-flash & airline & 50 & 0.800 & \$0.0238 & 0.411 [0.349, 0.468] & \$0.0215 & \$0.0448 \\
+qwen3.6-flash & retail & 114 & 0.825 & \$0.0202 & 0.454 [0.415, 0.492] & \$0.0204 & \$0.0311 \\
+qwen3.6-flash & telecom & 114 & 1.000 & \$0.0298 & 0.522 [0.510, 0.534] & \$0.0294 & \$0.0371 \\
+qwen3.6-flash & AVERAGE & 92.7 & 0.875 & \$0.0246 & 0.462 [0.425, 0.498] & \$0.0238 & \$0.0377 \\
+\midrule
+qwen3.7-max & airline & 50 & 0.820 & \$0.1993 & 0.160 [0.133, 0.187] & \$0.2009 & \$0.3786 \\
+qwen3.7-max & retail & 114 & 0.746 & \$0.1753 & 0.143 [0.125, 0.162] & \$0.1843 & -- \\
+qwen3.7-max & telecom & 114 & 0.974 & \$0.2628 & 0.143 [0.131, 0.155] & \$0.2633 & \$0.3327 \\
+qwen3.7-max & AVERAGE & 92.7 & 0.846 & \$0.2124 & 0.149 [0.130, 0.168] & \$0.2162 & \$0.3557 \\
+\midrule
+qwen3.7-plus & airline & 150 & 0.847 & \$0.0349 & 0.385 [0.356, 0.413] & \$0.0332 & \$0.0625 \\
+qwen3.7-plus & retail & 342 & 0.792 & \$0.0309 & 0.381 [0.360, 0.402] & \$0.0311 & -- \\
+qwen3.7-plus & telecom & 340 & 0.985 & \$0.0440 & 0.447 [0.438, 0.455] & \$0.0417 & \$0.0559 \\
+qwen3.7-plus & AVERAGE & 277.3 & 0.875 & \$0.0366 & 0.404 [0.384, 0.423] & \$0.0353 & \$0.0592 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 %% =================================================================

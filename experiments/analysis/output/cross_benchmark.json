@@ -1,0 +1,155 @@
+{
+  "n_shared": 12,
+  "shared_models": [
+    "deepseek-v4-flash",
+    "deepseek-v4-pro",
+    "qwen3-235b-instruct",
+    "qwen3-235b-thinking",
+    "qwen3-32b",
+    "qwen3.5-122b-a10b",
+    "qwen3.5-27b",
+    "qwen3.5-35b-a3b",
+    "qwen3.5-397b-a17b",
+    "qwen3.6-flash",
+    "qwen3.7-max",
+    "qwen3.7-plus"
+  ],
+  "aubc_kendall_tau": 0.7575757575757575,
+  "aubc_kendall_p": 0.00024002425044091711,
+  "pass1_kendall_tau": 0.5038314736557788,
+  "pass1_kendall_p": 0.02331499638254382,
+  "rankings": [
+    {
+      "model": "qwen3.5-27b",
+      "tau3_aubc": 0.5875932293044167,
+      "bfcl_aubc": 0.44407035175879384,
+      "tau3_aubc_rank": 1.0,
+      "bfcl_aubc_rank": 2.0,
+      "tau3_pass1": 0.9182456140350878,
+      "bfcl_pass1": 0.72,
+      "tau3_pass1_rank": 1.0,
+      "bfcl_pass1_rank": 4.0
+    },
+    {
+      "model": "qwen3.5-35b-a3b",
+      "tau3_aubc": 0.5660407299656176,
+      "bfcl_aubc": 0.38407035175879395,
+      "tau3_aubc_rank": 2.0,
+      "bfcl_aubc_rank": 5.0,
+      "tau3_pass1": 0.792748538011696,
+      "bfcl_pass1": 0.58,
+      "tau3_pass1_rank": 9.0,
+      "bfcl_pass1_rank": 10.0
+    },
+    {
+      "model": "deepseek-v4-flash",
+      "tau3_aubc": 0.541612840028603,
+      "bfcl_aubc": 0.51213567839196,
+      "tau3_aubc_rank": 3.0,
+      "bfcl_aubc_rank": 1.0,
+      "tau3_pass1": 0.8719298245614034,
+      "bfcl_pass1": 0.93,
+      "tau3_pass1_rank": 7.0,
+      "bfcl_pass1_rank": 1.0
+    },
+    {
+      "model": "qwen3.5-122b-a10b",
+      "tau3_aubc": 0.5129536571747626,
+      "bfcl_aubc": 0.38751256281407037,
+      "tau3_aubc_rank": 4.0,
+      "bfcl_aubc_rank": 4.0,
+      "tau3_pass1": 0.8727485380116958,
+      "bfcl_pass1": 0.67,
+      "tau3_pass1_rank": 6.0,
+      "bfcl_pass1_rank": 5.0
+    },
+    {
+      "model": "qwen3.5-397b-a17b",
+      "tau3_aubc": 0.4672658614710982,
+      "bfcl_aubc": 0.39552763819095477,
+      "tau3_aubc_rank": 5.0,
+      "bfcl_aubc_rank": 3.0,
+      "tau3_pass1": 0.8815204678362573,
+      "bfcl_pass1": 0.74,
+      "tau3_pass1_rank": 2.0,
+      "bfcl_pass1_rank": 3.0
+    },
+    {
+      "model": "qwen3.6-flash",
+      "tau3_aubc": 0.4623668047841547,
+      "bfcl_aubc": 0.3123366834170854,
+      "tau3_aubc_rank": 6.0,
+      "bfcl_aubc_rank": 7.0,
+      "tau3_pass1": 0.8748538011695907,
+      "bfcl_pass1": 0.61,
+      "tau3_pass1_rank": 4.0,
+      "bfcl_pass1_rank": 9.0
+    },
+    {
+      "model": "qwen3.7-plus",
+      "tau3_aubc": 0.40419919515015734,
+      "bfcl_aubc": 0.36643216080402014,
+      "tau3_aubc_rank": 7.0,
+      "bfcl_aubc_rank": 6.0,
+      "tau3_pass1": 0.8747861483774796,
+      "bfcl_pass1": 0.78,
+      "tau3_pass1_rank": 5.0,
+      "bfcl_pass1_rank": 2.0
+    },
+    {
+      "model": "deepseek-v4-pro",
+      "tau3_aubc": 0.39221046754239036,
+      "bfcl_aubc": 0.2775879396984925,
+      "tau3_aubc_rank": 8.0,
+      "bfcl_aubc_rank": 8.0,
+      "tau3_pass1": 0.8756725146198829,
+      "bfcl_pass1": 0.64,
+      "tau3_pass1_rank": 3.0,
+      "bfcl_pass1_rank": 6.5
+    },
+    {
+      "model": "qwen3-235b-instruct",
+      "tau3_aubc": 0.27805460048781927,
+      "bfcl_aubc": 0.2544723618090452,
+      "tau3_aubc_rank": 9.0,
+      "bfcl_aubc_rank": 10.0,
+      "tau3_pass1": 0.544327485380117,
+      "bfcl_pass1": 0.5,
+      "tau3_pass1_rank": 11.0,
+      "bfcl_pass1_rank": 11.0
+    },
+    {
+      "model": "qwen3-235b-thinking",
+      "tau3_aubc": 0.27186870022627757,
+      "bfcl_aubc": 0.25866834170854275,
+      "tau3_aubc_rank": 10.0,
+      "bfcl_aubc_rank": 9.0,
+      "tau3_pass1": 0.6753216374269005,
+      "bfcl_pass1": 0.63,
+      "tau3_pass1_rank": 10.0,
+      "bfcl_pass1_rank": 8.0
+    },
+    {
+      "model": "qwen3-32b",
+      "tau3_aubc": 0.15468894178494816,
+      "bfcl_aubc": 0.12334170854271362,
+      "tau3_aubc_rank": 11.0,
+      "bfcl_aubc_rank": 12.0,
+      "tau3_pass1": 0.30818713450292395,
+      "bfcl_pass1": 0.23,
+      "tau3_pass1_rank": 12.0,
+      "bfcl_pass1_rank": 12.0
+    },
+    {
+      "model": "qwen3.7-max",
+      "tau3_aubc": 0.14889682329777543,
+      "bfcl_aubc": 0.1548743718592965,
+      "tau3_aubc_rank": 12.0,
+      "bfcl_aubc_rank": 11.0,
+      "tau3_pass1": 0.8464327485380116,
+      "bfcl_pass1": 0.64,
+      "tau3_pass1_rank": 8.0,
+      "bfcl_pass1_rank": 6.5
+    }
+  ]
+}
