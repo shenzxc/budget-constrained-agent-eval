@@ -16,6 +16,8 @@
 %% ---------------------------------------------------------------
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{proposition}{Proposition}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{multirow}
@@ -102,8 +104,9 @@ Our contributions are as follows.
 \label{subsec:problem-formulation}
 Let agent $m$ produce trajectory $\tau(m,x)$ on task $x$, where the $i$-th model call consumes $p_i$ input tokens and $c_i$ output tokens (thinking tokens included, matching API billing). Given list prices $(\alpha_{\mathrm{in}}, \alpha_{\mathrm{out}})$ in USD per million tokens (cache-miss rates), the incremental cost of step $i$ is $\kappa_i = (\alpha_{\mathrm{in}}\, p_i + \alpha_{\mathrm{out}}\, c_i)/10^{6}$ and the cumulative cost is $K_j = \sum_{i \le j} \kappa_i$. The outcome of task $x$ under budget $B$ is
 \begin{equation}
-\mathrm{succ}_B(m,x) = 1 \iff \text{the trajectory terminates naturally, is scored successful, and } K(m,x) \le B.
+\mathrm{succ}_B(m,x) \;=\; \mathbb{1}\!\left[\,\omega(m,x)=1 \;\wedge\; K(m,x)\le B\,\right],
 \end{equation}
+where $\omega(m,x)=1$ denotes that the trajectory terminates naturally and is scored successful by the benchmark.
 \emph{Accounting boundary.} The budget constrains only the evaluated agent's own calls; the user simulator and the judge are evaluation infrastructure whose costs are reported separately and excluded from $B$. All experiments fix the user simulator (DeepSeek-V4-Flash) and judge (DeepSeek-V4-Pro) to keep models strictly comparable.
 
 \subsection{Deriving Full Curves from Single Runs}
