@@ -9,7 +9,7 @@
 %% after translation from the Chinese draft. Each section/subsection
 %% contains a %TODO marker indicating what content belongs there.
 
-\documentclass[preprint,12pt]{elsarticle}
+\documentclass[preprint,authoryear,12pt]{elsarticle}
 
 %% ---------------------------------------------------------------
 %% Packages
@@ -377,7 +377,11 @@ We summarize three robustness checks; scripts and JSON outputs are released.
 
 \paragraph{Statistical power.} The minimum detectable effect (two independent proportions, $\alpha=0.05$, power 0.8, conservative $p=0.5$) is 28.0~pp for airline ($n=50$) and 18.6~pp for retail and telecom ($n=114$). The Qwen3.5-27B-vs-Qwen3.7-Max AUBC and pass@1 gaps (35--50~pp) exceed the MDE in all three domains and are thus powered; the thinking-budget $0\!\to\!1024$ contrast (6.1~pp) falls below its MDE (10.6~pp), consistent with the direction-consistent-but-not-significant reading in Section~\ref{subsec:dose-response}. Our McNemar implementation reproduces the main-text $p$-values ($0.0029$ vs.\ $0.0027$; $0.151$ vs.\ $0.15$).
 
-\bibliographystyle{elsarticle-num}
+
+\section*{CRediT authorship contribution statement}
+\noindent\textbf{Weiming Shen:} Conceptualization, Methodology, Software, Formal analysis, Investigation, Data curation, Writing -- original draft, Writing -- review \& editing, Visualization.
+
+\bibliographystyle{elsarticle-harv}
 \bibliography{refs}
 
 \end{document}
