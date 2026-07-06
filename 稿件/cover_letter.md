@@ -25,5 +25,5 @@ Thank you for your consideration.
 Sincerely,
 
 Weiming Shen
-[Affiliation — to be completed]
+Independent Researcher, Suqian, Jiangsu, China
 19708110566@139.com
