@@ -13,9 +13,8 @@ BFCL_ROOT = Path("/Users/shenweiming/Projects/lunwen/experiments/gorilla/berkele
 BFCL_BIN = Path("/Users/shenweiming/Projects/lunwen/experiments/.venv/bin/bfcl")
 LOGS = Path("/Users/shenweiming/Projects/lunwen/experiments/logs")
 
-# 剩余5个模型(7/12已完成),(模型, 并发线程数)
+# 剩余模型,(模型, 并发线程数)。qwen3.6-flash 已完成(误跑了199个,分析时过滤前100),移出队列。
 REMAINING = [
-    ("qwen3.6-flash-FC", 8),
     ("deepseek-v4-flash-FC", 8),
     ("qwen3.5-397b-a17b-FC", 3),
     ("qwen3.5-122b-a10b-FC", 3),
@@ -38,7 +37,8 @@ def main():
             for attempt in range(1, MAX_RETRY + 1):
                 print(f"[{model}] generate attempt {attempt}/{MAX_RETRY}", flush=True)
                 rc = run([str(BFCL_BIN), "generate", "--model", model,
-                          "--test-category", CATEGORY, "--num-threads", str(threads)], logf)
+                          "--test-category", CATEGORY, "--num-threads", str(threads),
+                          "--run-ids"], logf)  # --run-ids: 限制在 test_case_ids_to_generate.json 的前100任务
                 if rc == 0:
                     break
                 print(f"[{model}] generate rc={rc}, 等60秒重试", flush=True)
