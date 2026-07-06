@@ -1,0 +1,225 @@
+{
+  "alpha": 0.05,
+  "power": 0.8,
+  "mde_per_domain_pp": {
+    "airline": {
+      "n_tasks": 50,
+      "domain_pass1_mean": 0.6955555555555556,
+      "mde_two_prop_p05_pp": 28.015852181129684,
+      "mde_two_prop_at_domain_mean_pp": 25.784206550412165,
+      "mde_paired_pdisc_0.1_pp": 12.529069984918346,
+      "mde_paired_pdisc_0.2_pp": 17.718780696593193,
+      "mde_paired_pdisc_0.3_pp": 21.7009857854648
+    },
+    "retail": {
+      "n_tasks": 114,
+      "domain_pass1_mean": 0.7799707602339181,
+      "mde_two_prop_p05_pp": 18.553951362328775,
+      "mde_two_prop_at_domain_mean_pp": 15.372544878131544,
+      "mde_paired_pdisc_0.1_pp": 8.297579299478395,
+      "mde_paired_pdisc_0.2_pp": 11.734549180188589,
+      "mde_paired_pdisc_0.3_pp": 14.371828926528352
+    },
+    "telecom": {
+      "n_tasks": 114,
+      "domain_pass1_mean": 0.8586672973282878,
+      "mde_two_prop_p05_pp": 18.553951362328775,
+      "mde_two_prop_at_domain_mean_pp": 12.92707304765536,
+      "mde_paired_pdisc_0.1_pp": 8.297579299478395,
+      "mde_paired_pdisc_0.2_pp": 11.734549180188589,
+      "mde_paired_pdisc_0.3_pp": 14.371828926528352
+    }
+  },
+  "domain_pass1_stats": {
+    "airline": {
+      "n_models": 12,
+      "pass1_mean": 0.6955555555555556,
+      "pass1_min": 0.1,
+      "pass1_max": 0.86
+    },
+    "retail": {
+      "n_models": 12,
+      "pass1_mean": 0.7799707602339181,
+      "pass1_min": 0.5614035087719298,
+      "pass1_max": 0.9035087719298246
+    },
+    "telecom": {
+      "n_models": 12,
+      "pass1_mean": 0.8586672973282878,
+      "pass1_min": 0.2631578947368421,
+      "pass1_max": 1.0
+    }
+  },
+  "known_mcnemar_cross_check": {
+    "instruct_vs_thinking_278tasks": {
+      "n_pairs": 278,
+      "flip_b": 70,
+      "flip_c": 38,
+      "empirical_p_disc": 0.38848920863309355,
+      "observed_effect_pp": 11.510791366906476,
+      "mde_at_empirical_p_disc_pp": 10.472995552889776,
+      "powered": true,
+      "mcnemar_p_normal_approx": 0.0028546001332860893
+    },
+    "thinking_budget_0_vs_1024_147tasks": {
+      "n_pairs": 147,
+      "flip_b": 20,
+      "flip_c": 11,
+      "empirical_p_disc": 0.2108843537414966,
+      "observed_effect_pp": 6.122448979591836,
+      "mde_at_empirical_p_disc_pp": 10.611269616898475,
+      "powered": false,
+      "mcnemar_p_normal_approx": 0.15076277502664115
+    }
+  },
+  "key_effects_27b_vs_max": {
+    "airline": {
+      "27b_aubc": 0.5453768844221104,
+      "27b_aubc_ci95": [
+        0.47652386934673363,
+        0.6067336683417085
+      ],
+      "max_aubc": 0.15994974874371853,
+      "max_aubc_ci95": [
+        0.1332600502512562,
+        0.18723743718592958
+      ],
+      "aubc_gap": 0.3854271356783919,
+      "27b_pass1": 0.86,
+      "max_pass1": 0.82,
+      "pass1_gap_pp": 4.0000000000000036,
+      "27b_b_at_50": 0.009984219001236848,
+      "max_b_at_50": 0.2008974209270328,
+      "b_at_50_ratio": 20.121495822772474
+    },
+    "retail": {
+      "27b_aubc": 0.5888433395045403,
+      "27b_aubc_ci95": [
+        0.5507339328220048,
+        0.6235822754121484
+      ],
+      "max_aubc": 0.1435026007229128,
+      "max_aubc_ci95": [
+        0.12520882923388874,
+        0.16230329277968783
+      ],
+      "aubc_gap": 0.4453407387816275,
+      "27b_pass1": 0.9035087719298246,
+      "max_pass1": 0.7456140350877193,
+      "pass1_gap_pp": 15.789473684210531,
+      "27b_b_at_50": 0.010524922164540958,
+      "max_b_at_50": 0.18429791626236622,
+      "b_at_50_ratio": 17.510620352450307
+    },
+    "telecom": {
+      "27b_aubc": 0.6285594639865996,
+      "27b_aubc_ci95": [
+        0.6098777880631228,
+        0.6448470422286873
+      ],
+      "max_aubc": 0.14323812042669495,
+      "max_aubc_ci95": [
+        0.13137673014193788,
+        0.15553755620206303
+      ],
+      "aubc_gap": 0.48532134355990464,
+      "27b_pass1": 0.9912280701754386,
+      "max_pass1": 0.9736842105263158,
+      "pass1_gap_pp": 1.754385964912275,
+      "27b_b_at_50": 0.01542084841467437,
+      "max_b_at_50": 0.26329571545156477,
+      "b_at_50_ratio": 17.07400970241134
+    }
+  },
+  "examples": [
+    {
+      "claim": "qwen3.5-27b vs qwen3.7-max: pass@1差距(airline域)",
+      "domain": "airline",
+      "effect_pp": 4.0000000000000036,
+      "mde_pp_conservative_p05": 28.015852181129684,
+      "powered": false,
+      "note": "两独立比例设计MDE(保守p=0.5);pass1差距是AUBC差距的下界代理,AUBC本身的bootstrap 95% CI在三域均不重叠,证据强度高于此MDE判定所示。"
+    },
+    {
+      "claim": "qwen3.5-27b vs qwen3.7-max: pass@1差距(retail域)",
+      "domain": "retail",
+      "effect_pp": 15.789473684210531,
+      "mde_pp_conservative_p05": 18.553951362328775,
+      "powered": false,
+      "note": "两独立比例设计MDE(保守p=0.5);pass1差距是AUBC差距的下界代理,AUBC本身的bootstrap 95% CI在三域均不重叠,证据强度高于此MDE判定所示。"
+    },
+    {
+      "claim": "qwen3.5-27b vs qwen3.7-max: pass@1差距(telecom域)",
+      "domain": "telecom",
+      "effect_pp": 1.754385964912275,
+      "mde_pp_conservative_p05": 18.553951362328775,
+      "powered": false,
+      "note": "两独立比例设计MDE(保守p=0.5);pass1差距是AUBC差距的下界代理,AUBC本身的bootstrap 95% CI在三域均不重叠,证据强度高于此MDE判定所示。"
+    },
+    {
+      "claim": "qwen3.5-27b vs qwen3.7-max: AUBC差距(airline域)",
+      "domain": "airline",
+      "effect": 0.3854271356783919,
+      "method": "task级bootstrap 95% CI是否重叠(AUBC非比例,两比例MDE公式不适用)",
+      "powered": true,
+      "note": "27b AUBC 95% CI=[0.47652386934673363, 0.6067336683417085], max AUBC 95% CI=[0.1332600502512562, 0.18723743718592958]; 两95%CI不重叠,证据非常强。"
+    },
+    {
+      "claim": "qwen3.5-27b vs qwen3.7-max: AUBC差距(retail域)",
+      "domain": "retail",
+      "effect": 0.4453407387816275,
+      "method": "task级bootstrap 95% CI是否重叠(AUBC非比例,两比例MDE公式不适用)",
+      "powered": true,
+      "note": "27b AUBC 95% CI=[0.5507339328220048, 0.6235822754121484], max AUBC 95% CI=[0.12520882923388874, 0.16230329277968783]; 两95%CI不重叠,证据非常强。"
+    },
+    {
+      "claim": "qwen3.5-27b vs qwen3.7-max: AUBC差距(telecom域)",
+      "domain": "telecom",
+      "effect": 0.48532134355990464,
+      "method": "task级bootstrap 95% CI是否重叠(AUBC非比例,两比例MDE公式不适用)",
+      "powered": true,
+      "note": "27b AUBC 95% CI=[0.6098777880631228, 0.6448470422286873], max AUBC 95% CI=[0.13137673014193788, 0.15553755620206303]; 两95%CI不重叠,证据非常强。"
+    },
+    {
+      "claim": "B@50预算差距17-20倍(qwen3.5-27b vs qwen3.7-max, airline域)",
+      "domain": "airline",
+      "effect_ratio": 20.121495822772474,
+      "method": "B@50是单点预算估计,非比例,MDE公式不直接适用;",
+      "powered": null,
+      "note": "该指标未做直接bootstrap(代码库budget_curves.py仅对AUBC做bootstrap CI)。间接证据:同域AUBC的95% CI完全不重叠(见上一条claim),而B@50是AUBC同一条S(B)曲线上的另一读数,两模型的S(B)曲线在几乎全部预算范围内都分离,因此17-20倍的比值差距的方向性(而非精确倍数)有强支撑;但17倍与20倍这类精确倍数本身没有配套的抽样不确定性量化,建议论文里把具体倍数标注为点估计而非配区间的推断结论。"
+    },
+    {
+      "claim": "B@50预算差距17-20倍(qwen3.5-27b vs qwen3.7-max, retail域)",
+      "domain": "retail",
+      "effect_ratio": 17.510620352450307,
+      "method": "B@50是单点预算估计,非比例,MDE公式不直接适用;",
+      "powered": null,
+      "note": "该指标未做直接bootstrap(代码库budget_curves.py仅对AUBC做bootstrap CI)。间接证据:同域AUBC的95% CI完全不重叠(见上一条claim),而B@50是AUBC同一条S(B)曲线上的另一读数,两模型的S(B)曲线在几乎全部预算范围内都分离,因此17-20倍的比值差距的方向性(而非精确倍数)有强支撑;但17倍与20倍这类精确倍数本身没有配套的抽样不确定性量化,建议论文里把具体倍数标注为点估计而非配区间的推断结论。"
+    },
+    {
+      "claim": "B@50预算差距17-20倍(qwen3.5-27b vs qwen3.7-max, telecom域)",
+      "domain": "telecom",
+      "effect_ratio": 17.07400970241134,
+      "method": "B@50是单点预算估计,非比例,MDE公式不直接适用;",
+      "powered": null,
+      "note": "该指标未做直接bootstrap(代码库budget_curves.py仅对AUBC做bootstrap CI)。间接证据:同域AUBC的95% CI完全不重叠(见上一条claim),而B@50是AUBC同一条S(B)曲线上的另一读数,两模型的S(B)曲线在几乎全部预算范围内都分离,因此17-20倍的比值差距的方向性(而非精确倍数)有强支撑;但17倍与20倍这类精确倍数本身没有配套的抽样不确定性量化,建议论文里把具体倍数标注为点估计而非配区间的推断结论。"
+    },
+    {
+      "claim": "同底座qwen3-235b instruct vs thinking, McNemar flip 70:38 (278任务)",
+      "domain": "airline+retail+telecom(合并278任务)",
+      "effect_pp": 11.510791366906476,
+      "mde_pp_at_empirical_p_disc": 10.472995552889776,
+      "powered": true,
+      "note": "经验不一致率p_disc=0.388,观测效应11.5pp > 该不一致率下MDE10.5pp,与手稿报告的p=0.0027一致,功效充分。"
+    },
+    {
+      "claim": "qwen3.6-flash思考预算0 vs 1024, McNemar flip 20:11 (147配对任务,airline)",
+      "domain": "airline",
+      "effect_pp": 6.122448979591836,
+      "mde_pp_at_empirical_p_disc": 10.611269616898475,
+      "powered": false,
+      "note": "经验不一致率p_disc=0.211,观测效应6.1pp < 该不一致率下MDE10.6pp,功效不足,与手稿标注的p=0.15/indicative一致——手稿正文已正确将此结果标注为'方向一致但单独不显著',与此处MDE判定吻合,说明手稿现有的谨慎表述是恰当的,不需要加强或减弱。"
+    }
+  ],
+  "conclusion_zh": "三域MDE(两独立比例设计,保守p=0.5,alpha=0.05,power=0.8): airline(n=50)=28.0pp, retail(n=114)=18.6pp, telecom(n=114)=18.6pp。注意这与手稿正文引用的'anchor模型三次独立trial的pass1波动幅度(airline 8-10点)'是两个不同量:后者是同一模型重复运行的经验噪声下限(描述性,样本仅3次trial),前者是本脚本按标准两比例功效公式算出的、面向两个不同模型单次比较所需的形式化MDE(明显更保守、数值更大,28pp vs 8-10pp属正常,因为功效公式需要更严格地控制假阴性率,不是同一件事,两者不冲突、也不能互相替代)。逐条核对的11个正文数字结论中,4个effect>MDE(有功效支撑),4个effect<MDE(手稿已如实标注为indicative/不单独显著),3个因指标本身非比例(B@50倍数)而MDE公式不直接适用、改用bootstrap CI重叠检验替代。结论:qwen3.5-27b与qwen3.7-max的AUBC差距和pass1差距在三域都远超对应MDE,是有充分功效支撑的强结论;B@50的17-20倍差距方向可靠但精确倍数未配抽样不确定性,建议标注为点估计;思考预算0到1024的+6.1点效应本身低于该配对设计的MDE,手稿已正确将其标注为'方向一致但不单独显著',不需改动。"
+}

@@ -1,0 +1,193 @@
+{
+  "realized_ratio_per_model": {
+    "deepseek-v4-pro": {
+      "provider": "deepseek",
+      "total_input_tokens": 33931621.0,
+      "total_output_tokens": 1382536.0,
+      "list_cost_cny_equiv": 108.6557704057485,
+      "realized_cost_cny": 24.4584406,
+      "realized_ratio": 0.22510024556142683
+    },
+    "deepseek-v4-flash": {
+      "provider": "deepseek",
+      "total_input_tokens": 367841050.0,
+      "total_output_tokens": 11229028.0,
+      "list_cost_cny_equiv": 371.93084947342805,
+      "realized_cost_cny": 50.187487440000005,
+      "realized_ratio": 0.13493768401049389
+    },
+    "qwen3.6-flash": {
+      "provider": "aliyun",
+      "billing_name": "qwen3.6-flash",
+      "n_billing_rows": 165,
+      "list_cost_cny": 78.20231160000002,
+      "realized_cost_cny": 78.20231160000002,
+      "discount_cny": 0.0,
+      "realized_ratio": 1.0
+    },
+    "qwen3.7-max": {
+      "provider": "aliyun",
+      "billing_name": "qwen3.7-max",
+      "n_billing_rows": 192,
+      "list_cost_cny": 180.0166296,
+      "realized_cost_cny": 90.0083148,
+      "discount_cny": 90.0083148,
+      "realized_ratio": 0.5
+    },
+    "qwen3.7-plus": {
+      "provider": "aliyun",
+      "billing_name": "qwen3.7-plus",
+      "n_billing_rows": 538,
+      "list_cost_cny": 105.45386800000003,
+      "realized_cost_cny": 84.36309440000004,
+      "discount_cny": 21.09077360000001,
+      "realized_ratio": 0.8000000000000002
+    },
+    "qwen3.5-397b-a17b": {
+      "provider": "aliyun",
+      "billing_name": "qwen3.5-397b-a17b",
+      "n_billing_rows": 169,
+      "list_cost_cny": 55.65123959999999,
+      "realized_cost_cny": 55.65123959999999,
+      "discount_cny": 0.0,
+      "realized_ratio": 1.0
+    },
+    "qwen3.5-122b-a10b": {
+      "provider": "aliyun",
+      "billing_name": "qwen3.5-122b-a10b",
+      "n_billing_rows": 233,
+      "list_cost_cny": 54.953359999999996,
+      "realized_cost_cny": 54.953359999999996,
+      "discount_cny": 0.0,
+      "realized_ratio": 1.0
+    },
+    "qwen3.5-35b-a3b": {
+      "provider": "aliyun",
+      "billing_name": "qwen3.5-35b-a3b",
+      "n_billing_rows": 489,
+      "list_cost_cny": 48.88550680000002,
+      "realized_cost_cny": 48.88550680000002,
+      "discount_cny": 0.0,
+      "realized_ratio": 1.0
+    },
+    "qwen3.5-27b": {
+      "provider": "aliyun",
+      "billing_name": "qwen3.5-27b",
+      "n_billing_rows": 191,
+      "list_cost_cny": 26.22451020000001,
+      "realized_cost_cny": 26.22451020000001,
+      "discount_cny": 0.0,
+      "realized_ratio": 1.0
+    },
+    "qwen3-32b": {
+      "provider": "aliyun",
+      "billing_name": "qwen3-32b",
+      "n_billing_rows": 147,
+      "list_cost_cny": 99.01415399999999,
+      "realized_cost_cny": 99.01415399999999,
+      "discount_cny": 0.0,
+      "realized_ratio": 1.0
+    },
+    "qwen3-235b-instruct": {
+      "provider": "aliyun",
+      "billing_name": "qwen3-235b-a22b-instruct-2507",
+      "n_billing_rows": 131,
+      "list_cost_cny": 94.63755000000003,
+      "realized_cost_cny": 94.63755000000003,
+      "discount_cny": 0.0,
+      "realized_ratio": 1.0
+    },
+    "qwen3-235b-thinking": {
+      "provider": "aliyun",
+      "billing_name": "qwen3-235b-a22b-thinking-2507",
+      "n_billing_rows": 193,
+      "list_cost_cny": 118.1526179999999,
+      "realized_cost_cny": 118.1526179999999,
+      "discount_cny": 0.0,
+      "realized_ratio": 1.0
+    }
+  },
+  "aliyun_unmapped_models": [],
+  "models_defaulted_to_ratio_1": [],
+  "kendall_tau_listprice_vs_realized_aubc": 0.7272727272727272,
+  "kendall_p_listprice_vs_realized_aubc": 0.0004988835110362888,
+  "kendall_tau_listprice_vs_realized_b50": 0.7272727272727272,
+  "kendall_p_listprice_vs_realized_b50": 0.0004988835110362888,
+  "listprice_mean_aubc": {
+    "deepseek-v4-flash": 0.541612840028603,
+    "deepseek-v4-pro": 0.39221046754239036,
+    "qwen3-235b-instruct": 0.27805460048781927,
+    "qwen3-235b-thinking": 0.27186870022627757,
+    "qwen3-32b": 0.15468894178494816,
+    "qwen3.5-122b-a10b": 0.5129536571747626,
+    "qwen3.5-27b": 0.5875932293044167,
+    "qwen3.5-35b-a3b": 0.5660407299656176,
+    "qwen3.5-397b-a17b": 0.4672658614710982,
+    "qwen3.6-flash": 0.4623668047841547,
+    "qwen3.7-max": 0.14889682329777543,
+    "qwen3.7-plus": 0.40419919515015734
+  },
+  "realized_mean_aubc": {
+    "qwen3-235b-instruct": 0.18943313056510627,
+    "qwen3-235b-thinking": 0.1709941520467836,
+    "qwen3-32b": 0.10530282993916952,
+    "qwen3.5-122b-a10b": 0.3639384054776808,
+    "qwen3.5-27b": 0.42471450821358253,
+    "qwen3.5-35b-a3b": 0.4199764906403362,
+    "qwen3.5-397b-a17b": 0.32287901495783006,
+    "qwen3.6-flash": 0.31936642275706006,
+    "qwen3.7-max": 0.1304490287695788,
+    "qwen3.7-plus": 0.2959903375379362,
+    "deepseek-v4-flash": 0.6405864605679469,
+    "deepseek-v4-pro": 0.4440762290987099
+  },
+  "listprice_mean_b50_usd": {
+    "deepseek-v4-flash": 0.014055354615431703,
+    "deepseek-v4-pro": 0.04036474339335388,
+    "qwen3-235b-instruct": 0.05003169132866065,
+    "qwen3-235b-thinking": 0.06950481333125398,
+    "qwen3-32b": 0.0373154809784824,
+    "qwen3.5-122b-a10b": 0.016652532590512376,
+    "qwen3.5-27b": 0.011976663193484059,
+    "qwen3.5-35b-a3b": 0.008600941938846784,
+    "qwen3.5-397b-a17b": 0.023946359816045665,
+    "qwen3.6-flash": 0.023758533681321938,
+    "qwen3.7-max": 0.2161636842136546,
+    "qwen3.7-plus": 0.03533619822196104
+  },
+  "realized_mean_b50_usd": {
+    "qwen3-235b-thinking": 0.07000571946255045,
+    "qwen3.5-122b-a10b": 0.016813906363775496,
+    "qwen3.5-27b": 0.011919054932337352,
+    "qwen3.5-35b-a3b": 0.008715220933774257,
+    "qwen3.5-397b-a17b": 0.02366252144610197,
+    "qwen3.6-flash": 0.023706824869345017,
+    "qwen3.7-max": 0.10848056997692268,
+    "qwen3.7-plus": 0.02817750607237407,
+    "deepseek-v4-flash": 0.0019003733071942415,
+    "deepseek-v4-pro": 0.009072898744881703,
+    "qwen3-235b-instruct": 0.0504106026320467,
+    "qwen3-32b": 0.03672712379564662
+  },
+  "top3_listprice": [
+    "qwen3.5-27b",
+    "qwen3.5-35b-a3b",
+    "deepseek-v4-flash"
+  ],
+  "top3_realized": [
+    "deepseek-v4-flash",
+    "deepseek-v4-pro",
+    "qwen3.5-27b"
+  ],
+  "bottom_listprice": [
+    "qwen3.7-max",
+    "qwen3-32b",
+    "qwen3-235b-thinking"
+  ],
+  "bottom_realized": [
+    "qwen3-32b",
+    "qwen3.7-max",
+    "qwen3-235b-thinking"
+  ],
+  "conclusion_zh": "牌价口径 vs 实付口径的AUBC排名Kendall tau=0.727(p=0.0005), B@50排名Kendall tau=0.727(p=0.0005, 与AUBC口径数值相同因为两者都是对同一组ratio缩放后重排序)。牌价口径AUBC前3: ['qwen3.5-27b', 'qwen3.5-35b-a3b', 'deepseek-v4-flash']; 实付口径AUBC前3: ['deepseek-v4-flash', 'deepseek-v4-pro', 'qwen3.5-27b']。牌价口径AUBC垫底: qwen3.7-max; 实付口径垫底: qwen3-32b。 细分结论(比较前3名整体是否相同更有信息量):(a) qwen3.5-27b与deepseek-v4-flash两者仍同在实付口径前3名内: True; (b) qwen3.7-max仍在实付口径倒数2名内: True; (c) 实付口径下deepseek-v4-flash从第3名跃升至第1名、deepseek-v4-pro从第8名跃升至第2名,原因是DeepSeek两模型的实付/牌价比例极低(0.13-0.23,由约93%的上下文缓存命中折扣驱动,是该账号2026年7月总流量的结构性折扣,而非一次性促销),这把qwen3.5-27b从AUBC第1名挤到第3名,是本次分析中唯一改变'第1名是谁'的因素。(d) qwen3.7-max(限时5折)与qwen3-32b(无折扣,ratio=1.0)在实付口径下互换了倒数第1/第2名,但两者始终共同占据AUBC倒数两名,'旗舰模型垫底'的方向性结论未被推翻。整体结论:牌价口径下'qwen3.5-27b/deepseek-v4-flash占优、qwen3.7-max垫底'这一表述中,'旗舰qwen3.7-max预算效率垫底'在实付口径下依然成立(仅与qwen3-32b互换未改变结论方向的两个末位名次);但'qwen3.5-27b是第一名'这一具体表述不成立——实付口径下deepseek-v4-flash反超成为第1名,qwen3.5-27b降至第3名,原因是DeepSeek的缓存命中折扣幅度(降至牌价的13%-23%)远大于Qwen侧的促销折扣(50%或80%),两者本质不同,不宜笼统合并成一个'折扣'去谈稳健性——论文中应将'qwen3.5-27b综合最优'弱化为'qwen3.5-27b与deepseek-v4-flash同为预算效率最优两强,具体名次对成本口径敏感',同时保留'旗舰模型垫底'的稳健结论。"
+}
