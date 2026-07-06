@@ -1,0 +1,35 @@
+{
+  "n_shared": 2,
+  "shared_models": [
+    "deepseek-v4-flash",
+    "qwen3.5-27b"
+  ],
+  "aubc_kendall_tau": 1.0,
+  "aubc_kendall_p": 1.0,
+  "pass1_kendall_tau": -1.0,
+  "pass1_kendall_p": 1.0,
+  "rankings": [
+    {
+      "model": "qwen3.5-27b",
+      "tau3_aubc": 0.5875932293044167,
+      "bfcl_aubc": 0.37288293318444077,
+      "tau3_aubc_rank": 1.0,
+      "bfcl_aubc_rank": 1.0,
+      "tau3_pass1": 0.9182456140350878,
+      "bfcl_pass1": 0.6296296296296297,
+      "tau3_pass1_rank": 1.0,
+      "bfcl_pass1_rank": 2.0
+    },
+    {
+      "model": "deepseek-v4-flash",
+      "tau3_aubc": 0.541612840028603,
+      "bfcl_aubc": 0.24560301507537685,
+      "tau3_aubc_rank": 2.0,
+      "bfcl_aubc_rank": 2.0,
+      "tau3_pass1": 0.8719298245614034,
+      "bfcl_pass1": 0.65,
+      "tau3_pass1_rank": 2.0,
+      "bfcl_pass1_rank": 1.0
+    }
+  ]
+}
