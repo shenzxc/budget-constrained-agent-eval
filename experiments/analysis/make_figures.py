@@ -155,7 +155,7 @@ def fig1_sb_curves():
     order = get_family_order(price_table, model_ids)
     colors = build_color_map(price_table, model_ids)
 
-    fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.6), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(7.5, 3.9), sharey=True)
 
     lines_for_legend = []
     labels_for_legend = []
@@ -192,12 +192,15 @@ def fig1_sb_curves():
     fig.legend(
         lines_for_legend,
         labels_for_legend,
-        loc="center left",
-        bbox_to_anchor=(1.0, 0.5),
+        loc="lower center",
+        bbox_to_anchor=(0.5, -0.02),
+        ncol=4,
         frameon=False,
         title="Model",
+        columnspacing=1.2,
+        handlelength=1.6,
     )
-    fig.tight_layout(rect=(0, 0, 0.82, 1))
+    fig.tight_layout(rect=(0, 0.16, 1, 1))
 
     FIG_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIG_DIR / "fig1_sb_curves.pdf", bbox_inches="tight")
