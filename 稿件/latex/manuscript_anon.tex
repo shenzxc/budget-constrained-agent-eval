@@ -1,0 +1,378 @@
+%% manuscript.tex
+%% Budget-Constrained Evaluation of Open-Weight LLM Agents:
+%% Success-Budget Curves and Cost-Aware Model Selection
+%%
+%% Target venues (Elsevier): Information Processing & Management / ESWA / EAAI
+%% Document class: elsarticle (see elsarticle.cls in this directory)
+%%
+%% Structure and section placeholders only -- body text to be filled in
+%% after translation from the Chinese draft. Each section/subsection
+%% contains a %TODO marker indicating what content belongs there.
+
+\documentclass[preprint,authoryear,12pt]{elsarticle}
+
+%% ---------------------------------------------------------------
+%% Packages
+%% ---------------------------------------------------------------
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+\newcommand{\pmark}{$\sim$}
+\newtheorem{proposition}{Proposition}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{hyperref}
+
+%% Path to the figures produced by experiments/analysis/output/figures/
+%% (relative to this .tex file at 稿件/latex/manuscript.tex)
+\graphicspath{{../../experiments/analysis/output/figures/}}
+
+\journal{Expert Systems with Applications}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% ---------------------------------------------------------------
+%% Title
+%% ---------------------------------------------------------------
+\title{Budget-Constrained Evaluation of Open-Weight LLM Agents: Success--Budget Curves, Price Reversal, and Thinking-Budget Saturation}
+
+%% ---------------------------------------------------------------
+%% Authors and affiliations (placeholders)
+%% ---------------------------------------------------------------
+\author{}
+
+%% ---------------------------------------------------------------
+%% Abstract
+%% ---------------------------------------------------------------
+\begin{abstract}
+Public leaderboards rank large language model (LLM) agents by success rate under an unlimited inference budget, whereas budget-sensitive practitioners face a different question: \emph{which model should be deployed when each task may spend at most a budget $B$?} We propose a budget-constrained evaluation protocol that treats the per-task budget as the independent variable and reports the success--budget curve $S(B)$ together with a family of derived metrics: the normalized area under the curve (AUBC), the budget-to-target $B_{@\tau}$, budget elasticity, and pairwise crossover points between models. We further show that for budget-unaware agents, the entire curve can be derived offline from a single maximum-budget run per task, decoupling evaluation cost from the number of budget levels. Applying the protocol to a coverage gap in existing evaluations---open-weight models served through public APIs---we evaluate 12 configurations of the DeepSeek-V4 and Qwen3 families (spanning a roughly 100-fold price range) on the three $\tau^3$-bench customer-service domains, collecting 4,448 multi-turn tool-use trajectories. Four findings emerge. (1) Budget constraints substantially reorder the leaderboard: at 0.3$\times$ the median budget-to-50\%-success, budget-constrained rankings are statistically unrelated to unconstrained ones (Kendall $\tau$ from $-0.02$ to $0.52$), and the budget required to reach 50\% success differs by 17--20$\times$ between models of comparable unconstrained accuracy. (2) The price-reversal phenomenon reported for single-turn reasoning does not appear in any of 66 model pairs (95\% upper confidence bound 4.4\%), because trajectory cost is dominated by repeatedly resent context rather than thinking tokens. (3) Thinking yields a real but strongly saturating benefit: a same-backbone paired contrast is significant ($p=0.0027$) at roughly twice the cost, yet the gain saturates at a budget of about 1K thinking tokens. (4) Open-weight hosted endpoints exhibit deterministic empty-response failures on up to 28\% of tasks for one model; treating these as infrastructure errors rather than model failures would inflate its measured success by 24 percentage points. All trajectories, code, and per-token cost records are released.
+\end{abstract}
+
+\begin{keyword}
+LLM agents \sep budget-constrained evaluation \sep cost-aware decision support \sep intelligent systems deployment \sep inference cost \sep open-weight models \sep tool-use agents
+\end{keyword}
+
+\end{frontmatter}
+
+%% =================================================================
+\section{Introduction}
+\label{sec:introduction}
+Large language model (LLM) agents are moving from demonstrations to deployments. In customer service, software engineering, and scientific computing, an agent completes a task through many rounds of tool calls, and its inference consumption accumulates with every step: a single agentic task can cost tens of times more than a single-turn query. For budget-sensitive deployers---precisely the primary audience of open-weight models---the operative question is not \emph{which model is strongest} but \emph{which model should be deployed under a per-task budget $B$}.
+
+Current evaluation practice cannot answer this question. Mainstream agent leaderboards report task success as the sole headline metric, and even the most recent cost-transparent infrastructure, the Holistic Agent Leaderboard (HAL)~\cite{kapoor2025holisticagentleaderboard}, records cost \emph{post hoc} rather than imposing it as a \emph{prospective constraint}: it reports what each model spent without limit, not what each model could still accomplish under a cap. The distinction is not rhetorical. Per-task costs of multi-step agents are heavy-tailed---in our data, costs for the same model within one domain span an order of magnitude---so mean cost conceals how budget truncation systematically affects the expensive tail. Meanwhile, single-turn reasoning studies have documented a \emph{price reversal} phenomenon, where models with lower list prices end up costlier due to highly variable thinking-token usage~\cite{chen2026pricereversal}; that work explicitly calls for treating inference cost as a first-class evaluation dimension and extending the analysis to agentic settings, but whether the phenomenon amplifies or vanishes over multi-step trajectories has remained an open empirical question.
+
+This paper proposes a \emph{budget-constrained evaluation protocol} for LLM agents. The protocol treats a hard per-task budget cap $B$ as the independent variable of evaluation and reports the success--budget curve $S(B)$ along with a family of derived metrics: the normalized area under the budget curve (AUBC) as a scalar cost-effectiveness summary; the budget-to-target $B_{@\tau}$, i.e., the minimum budget at which success reaches $\tau$; the budget elasticity $\varepsilon(B)$; and the set of pairwise \emph{crossover points} between the curves of any two models, which directly yields a budget-interval-to-best-model lookup table and turns model selection into a table lookup. Rather than a one-off model comparison, the protocol is intended as a reusable, decision-theoretic evaluation instrument: any practitioner can instantiate it for their own budget, benchmark, and candidate models to obtain a deployment-ready ranking. The protocol rests on a simple but consequential observation: for an agent that is unaware of its budget, the trajectory under any budget $B$ is exactly the prefix of its maximum-budget trajectory truncated where cumulative cost first exceeds $B$. Consequently, \emph{a single maximum-budget run per task suffices} to derive $S(B)$ at every budget level offline, decoupling evaluation cost from the number of budget levels.
+
+We apply the protocol to a coverage gap in current evaluations: \emph{open-weight models served through public APIs}. Using the three customer-service domains of $\tau^3$-bench~\cite{barres2025tau2bench} (airline, retail, telecom; 278 tasks in total) as the testbed, we evaluate 12 model configurations from the DeepSeek-V4 and Qwen3 families, spanning a roughly 100-fold price range, dense and mixture-of-experts architectures, and thinking and non-thinking modes, with the user simulator and judge fixed across all runs for comparability. This coverage is complementary to HAL (nine closed frontier models, no Chinese open-weight models), and for budget-sensitive deployers these models constitute the realistic candidate set.
+
+The results support the necessity of the protocol. At 0.3$\times$ the median budget-to-50\%-success, budget-constrained rankings are statistically unrelated to the unconstrained success ranking in two domains (airline: Kendall $\tau=-0.02$, $p=0.94$; retail: $\tau=0.17$, $p=0.46$), recovering agreement only at 3$\times$ the median budget ($\tau=0.60$--$0.88$, $p<0.01$). To reach 50\% success, the most cost-effective model (Qwen3.5-27B) needs \$0.010--\$0.015 per task while the flagship Qwen3.7-Max needs \$0.18--\$0.26---a 17--20$\times$ gap at essentially equal unconstrained accuracy. The price reversal reported for 21.8\% of model pairs in single-turn settings appears in none of our 66 pairs: trajectory cost is dominated by repeatedly resent context (input-to-output token ratios of roughly 10:1 to 40:1), which dilutes the thinking-token variance that drives the single-turn effect. A thinking-budget sweep yields a clearly saturating dose--response: the benefit of thinking is confirmed by a same-backbone paired contrast ($p=0.0027$) but saturates at about 1K thinking tokens, with a 16-fold larger budget buying only two further percentage points.
+
+Our contributions are as follows.
+\begin{enumerate}
+\item \textbf{Protocol and metrics.} To our knowledge, the first prospective budget-constrained evaluation protocol for multi-step agents, comprising the $S(B)$/AUBC/$B_{@\tau}$/elasticity/crossover metric family, the single-run curve derivation, and a task-level paired-bootstrap inference procedure.
+\item \textbf{Coverage and artifacts.} To our knowledge, the first systematic cost--capability study of Chinese open-weight agent models (12 configurations $\times$ 3 domains $\times$ 278 tasks; 4,448 valid multi-turn trajectories), with all trajectories and per-token cost records released.
+\item \textbf{Findings.} Quantitative evidence that budgets reorder agent leaderboards; a mechanistic account of why single-turn price reversal disappears in multi-step tasks; a saturating dose--response curve for thinking budgets; and a systematic empty-response failure mode of open-weight hosted endpoints, with its consequences for evaluation accounting.
+\end{enumerate}
+
+%% =================================================================
+\section{Related Work}
+\label{sec:related-work}
+\paragraph{Agent benchmarks.} $\tau$-bench and its successor $\tau^3$-bench~\cite{barres2025tau2bench} characterize customer-service agents through LLM-simulated users and policy-constrained tool calls; the $\tau^3$ release fixed more than 75 task defects identified by SABER~\cite{cuadron2025saber} and added a telecom domain, making it one of the most strictly scored multi-turn tool-use benchmarks available. SWE-bench~\cite{jimenez2024swebench}, GAIA~\cite{mialon2023gaia}, and AgentBench~\cite{liu2024agentbench} cover software engineering and general assistance, typically with ReAct-style agents~\cite{yao2023react}. Across all of these, leaderboards rank by success rate; cost appears at most as a footnote.
+
+\paragraph{Cost-aware evaluation.} Kapoor et al.~\cite{kapoor2025aiagentsmatter} first argued that agent evaluations neglect cost, proposed joint accuracy--cost Pareto reporting, and showed that simple baselines often Pareto-dominate elaborate agents; their follow-up HAL~\cite{kapoor2025holisticagentleaderboard} standardized evaluation infrastructure and recorded the cost of nine closed frontier models across nine benchmarks (21{,}730 rollouts, \$40K). Cost-of-Pass~\cite{erol2025costofpass} defines the expected monetary cost per correct solution and tracks its frontier over model releases. The closest motivation to ours is the price-reversal study~\cite{chen2026pricereversal}: on nine single-turn reasoning datasets, 21.8\% of model pairs invert between list-price order and realized-cost order, driven by thinking-token variance (up to 9.7$\times$ for a repeated query), and the authors call for cost as a first-class evaluation dimension. \emph{Our difference from all of the above lies in the evaluation semantics}: they record or aggregate realized spending, whereas we impose a prospective budget constraint and measure the response of success to budget---the former answers ``how much was spent,'' the latter answers ``what can be accomplished under a given budget,'' which is the form deployment decisions take. BCAS~\cite{mccleary2026budgetconstrainedsearch} ablates design decisions of retrieval agents under fixed budgets but is restricted to one scaffold family and does not propose curve-family metrics; Efficient Agents~\cite{wang2025efficientagents} reduces agent cost by design rather than measuring cross-model budget response.
+
+Table~\ref{tab:comparison} positions this work against the closest prior art along six axes; to our knowledge no prior work combines a prospective per-task budget constraint, the full success--budget metric family, and open-weight/public-API coverage.
+
+\begin{table}[t]
+\centering
+\caption{Positioning against the closest cost-aware evaluation work. \cmark: supported; \pmark: partial/limited; \xmark: not addressed. Axes: multi-step agents; prospective per-task budget cap (vs.\ post-hoc cost recording); full success--budget curve family ($S(B)$/AUBC/$B_{@\tau}$/crossovers); offline whole-curve derivation from a single run; deployment-oriented budget-to-model lookup; coverage of open-weight/public-API models.}
+\label{tab:comparison}
+\small
+\begin{tabular}{l c c c c c c}
+\toprule
+Work & Multi-step & Budget cap & Curve family & Offline deriv.\ & Deploy.\ lookup & Open-weight \\
+\midrule
+HAL~\cite{kapoor2025holisticagentleaderboard} & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark \\
+Cost-of-Pass~\cite{erol2025costofpass} & \xmark & \xmark & \xmark & \xmark & \xmark & \pmark \\
+Price Reversal~\cite{chen2026pricereversal} & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\
+BCAS~\cite{mccleary2026budgetconstrainedsearch} & \cmark & \cmark & \xmark & \xmark & \xmark & \pmark \\
+\textbf{This work} & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Test-time compute and thinking budgets.} Overthinking and adaptive test-time compute have been surveyed systematically~\cite{alomrani2025reasoningonabudget}, and adaptive effort selection has been studied for agents~\cite{yang2026ares}. Public APIs now expose thinking-budget controls, turning the amount of thinking into a controllable experimental variable; existing measurements, however, focus on single-turn mathematics and coding, and the dose--response of thinking budget on multi-step agent success had not been measured systematically (our RQ3).
+
+\paragraph{Open-weight and production evaluation.} Recent surveys of agent evaluation~\cite{mohammadi2025evalsurvey,yehudai2025evalsurvey} organize the field around behaviour, capability, reliability, and safety, and consistently note that cost efficiency and reliability remain under-served relative to task success---the gap this paper targets. Mainstream agent leaderboards moreover contain almost no Chinese open-weight models, although their roughly order-of-magnitude lower unit prices make them the de facto option for budget-sensitive deployments; production-oriented surveys likewise identify cost efficiency as a missing dimension of current evaluation frameworks~\cite{mehta2025enterpriseagenticframework}. This paper provides the first systematic cost--capability data for these models on a strictly scored multi-turn benchmark.
+
+%% =================================================================
+\section{Budget-Constrained Evaluation Protocol}
+\label{sec:protocol}
+
+\subsection{Problem Formulation}
+\label{subsec:problem-formulation}
+Let agent $m$ produce trajectory $\tau(m,x)$ on task $x$, where the $i$-th model call consumes $p_i$ input tokens and $c_i$ output tokens (thinking tokens included, matching API billing). Given list prices $(\alpha_{\mathrm{in}}, \alpha_{\mathrm{out}})$ in USD per million tokens (cache-miss rates), the incremental cost of step $i$ is $\kappa_i = (\alpha_{\mathrm{in}}\, p_i + \alpha_{\mathrm{out}}\, c_i)/10^{6}$ and the cumulative cost is $K_j = \sum_{i \le j} \kappa_i$. The outcome of task $x$ under budget $B$ is
+\begin{equation}
+\mathrm{succ}_B(m,x) \;=\; \mathbb{1}\!\left[\,\omega(m,x)=1 \;\wedge\; K(m,x)\le B\,\right],
+\end{equation}
+where $\omega(m,x)=1$ denotes that the trajectory terminates naturally and is scored successful by the benchmark.
+\emph{Accounting boundary.} The budget constrains only the evaluated agent's own calls; the user simulator and the judge are evaluation infrastructure whose costs are reported separately and excluded from $B$. All experiments fix the user simulator (DeepSeek-V4-Flash) and judge (DeepSeek-V4-Pro) to keep models strictly comparable.
+
+\subsection{Deriving Full Curves from Single Runs}
+\label{subsec:deriving-curves}
+\begin{proposition}[Truncation equivalence]
+If an agent is budget-unaware---its policy does not condition on the remaining budget---then its trajectory under budget $B$ equals the prefix of its maximum-budget trajectory truncated where cumulative cost first exceeds $B$.
+\end{proposition}
+The claim follows directly from budget-independence of the policy: the per-step decision distribution is identical under both conditions, and the only difference is the external truncation time. As a corollary, $S(B)$ for every $B$ can be computed offline from one maximum-budget run per task, making evaluation cost independent of the number of budget levels. Budget-\emph{aware} agents violate the premise and require one run per budget level; we leave them to future work (Section~\ref{sec:discussion}).
+
+\subsection{Metric Family}
+\label{subsec:metric-family}
+On a per-domain logarithmically spaced budget grid (200 points spanning $[0.5\times$ the minimum completed-trajectory cost, $1.05\times$ the maximum$]$) we define:
+\begin{itemize}
+\item $S(B) = \mathbb{E}_x[\mathrm{succ}_B(m,x)]$: the success--budget curve, nondecreasing in $B$ with $S(\infty) = \mathrm{pass@1}$;
+\item $\mathrm{AUBC} = \int S \, d\log B \,/\, \Delta \log B \in [0,1]$: a scalar summary of low-budget usability and high-budget ceiling;
+\item $B_{@\tau} = \min \{B : S(B) \ge \tau\}$: the budget-to-target, directly usable in deployment service-level objectives;
+\item elasticity $\varepsilon(B) = d\log S / d\log B$: the marginal return of budget;
+\item crossover points $B^{*}(m_1, m_2)$: budgets at which $S_1$ and $S_2$ intersect with a sign change, yielding a budget-interval-to-best-model lookup table.
+\end{itemize}
+\emph{Statistical inference.} Within a domain all models face the same task set, so all between-model comparisons use task-level \emph{paired} bootstrap (2{,}000 resamples, fixed seed) for 95\% confidence intervals; rank stability across budget levels is quantified with Kendall's $\tau$ (nine tests; all significance conclusions survive Holm correction). One anchor model per provider tier is run with three independent trials to estimate run-to-run variance as a reference for interpreting single-run differences.
+
+\subsection{Research Questions}
+\label{subsec:research-questions}
+\begin{itemize}
+\item \textbf{RQ1.} How do $S(B)$ curves differ across models, and does the unconstrained leaderboard remain informative at low budgets? Where are the crossover points?
+\item \textbf{RQ2.} Does the single-turn price-reversal phenomenon persist at trajectory level---do cheaper list prices still predict cheaper realized costs after thinking-token variance accumulates over many steps?
+\item \textbf{RQ3.} What is the dose--response of thinking budget (0/1K/4K/16K tokens) on multi-step task success and cost?
+\end{itemize}
+In addition to these pre-registered questions, data collection surfaced an unanticipated reliability phenomenon of open-weight hosted endpoints, which we report in Section~\ref{subsec:reliability-failures} together with its accounting implications. Budget-aware agents, which violate the truncation-equivalence premise of Section~\ref{subsec:deriving-curves}, are left to future work.
+
+%% =================================================================
+\section{Experimental Setup}
+\label{sec:experimental-setup}
+
+\subsection{Testbed}
+\label{subsec:testbed}
+We use the three text domains of $\tau^3$-bench~\cite{barres2025tau2bench}: airline (50 tasks), retail (114), and telecom (114), with the default \texttt{base} split and official scoring (database-state matching plus natural-language assertions). The domains represent the most common deployed agent form---multi-turn tool use under policy constraints---with largely deterministic scoring, and the $\tau^3$ release incorporates over 75 task fixes~\cite{cuadron2025saber}. To probe generalization beyond this task family, we conduct a validation experiment on BFCL multi-turn function calling as a second benchmark family (Section~\ref{sec:results}).
+
+\subsection{Model Matrix}
+\label{subsec:model-matrix}
+We evaluate 12 configurations, all served through public Chinese APIs (Table~\ref{tab:table1-main} lists them): DeepSeek-V4 (flash/pro), Qwen3.7 (max/plus), Qwen3.6-flash, the open-weight Qwen3.5 series (397B-A17B, 122B-A10B, 35B-A3B, 27B), Qwen3-32B, and the same-backbone contrast pair Qwen3-235B-A22B (instruct vs.\ thinking). List prices span roughly two orders of magnitude (input prices from CNY 0.4 to 12 per million tokens). Qwen3-32B is run with \texttt{enable\_thinking=false} due to a DashScope non-streaming restriction and billed at its non-thinking rate. The complete price table with source URLs and verification dates is released with the code (\texttt{models.yaml}). For RQ3, Qwen3.6-flash is swept over thinking budgets of 0 (disabled), 1{,}024, 4{,}096, and 16{,}384 tokens on the airline domain, with three trials for the 0 and 1{,}024 arms.
+
+\subsection{Cost Accounting and Reproducibility}
+\label{subsec:cost-accounting}
+Cost equals token counts times official list prices (cache-miss rates, verified 2026-07-04); CNY prices are converted at the CFETS mid rate of 6.8067 (2026-07-01). \emph{List-price versus realized billing.} Under this accounting, the agent-side cost of all experiments is \$177.5, whereas the actual bills of the two providers total approximately CNY 825 ($\approx$\$121); the gap stems from provider-side context-cache discounts (a 93.5\% input-cache hit rate on DeepSeek, with hit prices roughly 1/120 of miss prices), limited-time promotions, and free quotas. Because such discounts vary with deployment patterns and are not reproducible, list-price accounting is our primary metric, with realized billing data released alongside. All runs use temperature 0; the user simulator and judge are fixed throughout; two judge components of the $\tau^3$-bench harness that default to an OpenAI model were patched to DeepSeek-V4-Pro (patch released). Deterministic empty-response failures of an evaluated model are counted as task failures of that model (Section~\ref{subsec:reliability-failures}); the two empty responses of the user simulator (evaluation infrastructure) are excluded from denominators and reported. Because per-task cost is right-skewed, we report mean cost in the main tables but also release the full per-task cost distribution; for reference, medians run 5--15\% below means with p90/median ratios of 1.5--1.8 (e.g., DeepSeek-V4-Flash on BFCL: mean \$0.0107, median \$0.0099, p90 \$0.0163). Per-step token and cost sequences for every trajectory, all code, and analysis scripts are released.
+
+%% =================================================================
+\section{Results}
+\label{sec:results}
+
+\subsection{Budget Reshuffles the Leaderboard}
+\label{subsec:budget-reshuffles}
+Table~\ref{tab:table1-main} reports the full results and Figure~\ref{fig:sb-curves} the $S(B)$ curves. As a variance reference for interpreting single-run differences, the pass@1 range across three independent trials of the two anchor models is 0.08--0.10 on airline, 0.035--0.044 on retail, and 0.009--0.018 on telecom; on airline (50 tasks) between-model differences below eight points should not be over-interpreted, and the conclusions below rest on larger gaps or paired tests.
+
+Under an unbounded budget the leading models per domain are close in pass@1 (airline 0.80--0.86, retail 0.75--0.90, telecom 0.95--1.00), yet the $S(B)$ curves show that the budget required to approach these asymptotes differs by more than an order of magnitude. By AUBC, Qwen3.5-27B ranks first or tied-first in all three domains (0.545/0.589/0.629) and DeepSeek-V4-Flash second (0.516/0.535/0.574), whereas Qwen3.7-Max---whose unbounded pass@1 matches the former---ranks last in every domain (0.160/0.144/0.143). The budget-to-target contrast is starker still: to reach 50\% success, Qwen3.5-27B needs \$0.010--\$0.015 per task and Qwen3.7-Max \$0.18--\$0.26, a within-domain factor of 17 (telecom/retail) to 20 (airline).
+
+At the rank level (full per-budget values in the released \texttt{fig3\_kendall.txt}), at 0.3$\times$ the median budget-to-50\% the Kendall $\tau$ between the budget-constrained ranking and the pass@1 ranking is $-0.02$ ($p=0.94$) on airline and $0.17$ ($p=0.46$) on retail---\emph{statistically unrelated}---and $0.52$ ($p=0.03$) on telecom, where the ceiling is near 1.0 and cheap models dominate across the whole budget range. Relaxing the budget to 3$\times$ restores agreement ($\tau=0.60/0.88/0.84$, all $p<0.01$). This ``low-budget decoupling, high-budget convergence'' pattern quantifies the validity boundary of the conventional leaderboard: it is informative only in the budget-abundant regime. Because the airline domain (50 tasks) has limited precision, we treat single-domain orderings as \emph{indicative} and rest the claims on cross-domain agreement and paired tests. In the budget-interval-to-best-model lookup table, Qwen3.5-27B and DeepSeek-V4-Flash are the two budget-efficiency leaders across the three domains; the exact top spot is sensitive to cost accounting (Appendix~\ref{app:robust}), whereas the robust conclusion is that no flagship model enters the top two at any budget in any domain. The AUBC-versus-price scatter (Figure~\ref{fig:aubc-vs-price}) shows a Pareto frontier composed exclusively of low-priced open-weight models.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{fig1_sb_curves.pdf}
+\caption{Success--budget curves $S(B)$ for the 12-model matrix across the three $\tau^3$-bench domains. The $x$-axis is per-task budget (USD, log scale); colours group model families. Low-priced open-weight models (green) rise earliest.}
+\label{fig:sb-curves}
+\end{figure}
+
+\subsection{Absence of Price Reversal in Multi-Step Tasks}
+\label{subsec:price-reversal}
+On single-turn reasoning, prior work reports that 21.8\% of model pairs invert between list-price order and realized-cost order, driven by thinking-token variance. Testing all 66 model pairs by ``composite list-price order versus measured per-task-cost order'' (Figure~\ref{fig:aubc-vs-price}), we find \emph{zero inversions} (95\% upper confidence bound 4.4\%, Clopper--Pearson): on this testbed the list-price order predicts the realized-cost order exactly.
+
+The mechanism lies in the cost structure. Each step of a multi-turn tool call resends a growing context, so cumulative input tokens per task reach 33K--91K while output (thinking included) tokens are only 2K--8.4K, an input-to-output ratio of roughly 10:1 to 40:1. The thinking-token variance that dominates single-turn cost is diluted at the trajectory level by (i) the large base of input cost and (ii) averaging over roughly 8--35 calls. This directly answers the call in prior work to extend cost evaluation to agentic settings: \emph{the central cost risk of single-turn studies (thinking variance) does not appear to carry over to multi-step deployment on our benchmarks; instead, the dominant cost driver shifts to context management}.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{fig2_aubc_vs_price.pdf}
+\caption{AUBC (mean over three domains) versus output list price (USD per million tokens, log scale). The Pareto frontier is formed exclusively by low-priced open-weight models; the flagship Qwen3.7-Max sits at the lower right (high price, low AUBC).}
+\label{fig:aubc-vs-price}
+\end{figure}
+
+\subsection{Thinking-Budget Dose--Response}
+\label{subsec:dose-response}
+The value of thinking is characterized by two complementary pieces of evidence. \emph{Efficacy}: on the same-backbone contrast, the thinking variant of Qwen3-235B improves over the instruct variant by +20 points on airline (0.64 vs.\ 0.44), +5 on retail, and +14 on telecom; a paired McNemar test over the 278 tasks gives a flip ratio of 70:38 ($p=0.0027$)---the benefit of thinking is statistically significant on a fixed backbone, at roughly twice the cost. \emph{Saturation}: sweeping the thinking budget of Qwen3.6-flash on airline (three trials per arm, 147 paired tasks), pass@1 is 0.762 with thinking disabled, rises to 0.823 at a 1K budget (+6.1 points at +7\% cost; paired flips 20:11, $p=0.15$, direction consistent across all three trials but not individually significant), is unchanged at 4K, and reaches only +2 further points at 16K for +24\% cost. The combined deployment rule is clear: \emph{thinking is worth buying, but only the first ${\sim}$1K tokens; larger budgets yield no measurable success gain on this benchmark}.
+
+An unanticipated secondary finding: enabling thinking \emph{lowers} cumulative input tokens per task from 91K to 78K---thinking lets the dialogue converge in fewer turns, so its cost is partly self-offsetting through shorter trajectories. This further explains the limited effect of thinking variance on trajectory cost observed in Section~\ref{subsec:price-reversal}.
+
+\subsection{Reliability Failures of Open-Weight Endpoints}
+\label{subsec:reliability-failures}
+On 28\% of airline tasks (14/50), across four in-process retries and six independent re-run rounds, Qwen3.5-35B-A3B \emph{deterministically} returns empty responses (an assistant message with neither content nor tool calls; one further case occurs on retail); the behaviour is bound to task content rather than random. If, following common practice, these are labelled infrastructure errors and dropped from the denominator, the model's airline pass@1 is 0.818; counted as failures of the model itself (our convention), it is 0.580---\emph{the choice of accounting convention alone shifts the measured success rate by 24 percentage points}. As a control, empty responses on the user-simulator side (infrastructure) number only two (Qwen3.7-Plus/telecom) and are excluded from denominators and reported. Separately, Qwen3-32B must be run with thinking disabled to function under DashScope's non-streaming interface. Figure~\ref{fig:price-vs-realized} confirms that list-price order tracks realized-cost order (Section~\ref{subsec:price-reversal}). These phenomena indicate that open-weight hosted endpoints exhibit systematic behavioural defects beyond rate limiting; consistent with emerging reliability-science perspectives that look beyond pass@1~\cite{khanal2026reliability}, a budget-constrained evaluation must treat ``does the model reliably return a parseable response'' as a first-class part of its accounting, lest the cost-effectiveness of the cheapest models be systematically overstated.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{fig4_price_vs_realized.pdf}
+\caption{List-price rank versus measured per-task-cost rank across models. Points lie on the diagonal (zero of 66 pairs inverted), i.e.\ no price reversal in the multi-step setting.}
+\label{fig:price-vs-realized}
+\end{figure}
+
+%% -----------------------------------------------------------------
+%% Table 1 skeleton, derived from
+%% experiments/analysis/output/table1_main.csv
+%% Columns: model, domain, n_valid, pass1, mean_cost_usd,
+%%          aubc_with_ci95, b_at_50_usd, b_at_80_usd
+%% -----------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Main results across the 12-model matrix and three $\tau^3$-bench domains. pass@1 is the unbounded success rate; mean cost is agent-side USD per task at list price; AUBC is the normalized area under $S(B)$ with a task-level bootstrap 95\% CI; $B_{@50}$/$B_{@80}$ are the budgets (USD) to reach 50\%/80\% success (``--'' if unattained). AVERAGE rows average over domains.}
+\label{tab:table1-main}
+\begin{tabular}{l r r c r}
+\toprule
+Model & pass@1 & Mean cost (USD) & AUBC [95\% CI] & $B_{@50}$ (USD) \\
+\midrule
+qwen3.5-27b & 0.918 & 0.0127 & 0.588 [0.546, 0.625] & 0.0120 \\
+qwen3.5-35b-a3b & 0.793 & 0.0081 & 0.566 [0.510, 0.621] & 0.0086 \\
+deepseek-v4-flash & 0.872 & 0.0143 & 0.542 [0.515, 0.568] & 0.0141 \\
+qwen3.5-122b-a10b & 0.873 & 0.0174 & 0.513 [0.470, 0.553] & 0.0167 \\
+qwen3.5-397b-a17b & 0.881 & 0.0248 & 0.467 [0.429, 0.501] & 0.0239 \\
+qwen3.6-flash & 0.875 & 0.0246 & 0.462 [0.425, 0.498] & 0.0238 \\
+qwen3.7-plus & 0.875 & 0.0366 & 0.404 [0.384, 0.423] & 0.0353 \\
+deepseek-v4-pro & 0.876 & 0.0416 & 0.392 [0.356, 0.426] & 0.0404 \\
+qwen3-235b-instruct & 0.544 & 0.0339 & 0.278 [0.223, 0.334] & 0.0500 \\
+qwen3-235b-thinking & 0.675 & 0.0615 & 0.272 [0.228, 0.314] & 0.0695 \\
+qwen3-32b & 0.308 & 0.0327 & 0.155 [0.112, 0.200] & -- \\
+qwen3.7-max & 0.846 & 0.2124 & 0.149 [0.130, 0.168] & 0.2162 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%% =================================================================
+\subsection{Cross-Benchmark Generalization}
+\label{subsec:cross-benchmark}
+To test whether the above conclusions extend beyond the customer-service task family, we replicate the protocol on a second, structurally different benchmark: the Berkeley Function-Calling Leaderboard (BFCL)~\cite{patil2024gorilla} multi-turn function calling (\texttt{multi\_turn\_base}), evaluating the same 12 models on a fixed prefix of 100 tasks. Because BFCL exposes per-task token totals, each task is treated as a single-point trajectory and the same $S(B)$/AUBC pipeline applies.
+
+The budget-efficiency ordering transfers strongly. Across the 12 shared models, the Kendall rank correlation between the $\tau^3$-bench mean AUBC and the BFCL AUBC is $\tau=0.758$ ($p=2\times10^{-4}$; model-level bootstrap 95\% CI $[0.48, 0.93]$; Figure~\ref{fig:cross-benchmark}). Resampling the 100 BFCL tasks (task-level bootstrap) keeps the correlation stable at $\tau=0.774$, 95\% CI $[0.67, 0.88]$, and a 50-task subsample gives the same range (Appendix~\ref{app:robust}), so the result is not an artifact of the fixed first-100-task selection; the pass@1 rank correlation is weaker ($\tau=0.504$, $p=0.023$), consistent with our thesis that budget-conditioned metrics are more stable and more decision-relevant than raw success. The same models lead on both benchmarks: DeepSeek-V4-Flash attains 0.93 accuracy at \$0.011 per task on BFCL (rank 1 by AUBC) and Qwen3.5-27B ranks second, while the flagship Qwen3.7-Max again ranks near the bottom (0.64 accuracy at \$0.127 per task). That a leaderboard reshuffle and a cheap-model-dominated Pareto frontier reproduce across two benchmarks with entirely different interaction structures indicates the effect is a property of budget-conditioned evaluation rather than of any single task family.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.62\linewidth]{fig5_cross_benchmark.pdf}
+\caption{Cross-benchmark generalization: per-model AUBC on $\tau^3$-bench (mean over three domains) versus BFCL \texttt{multi\_turn\_base}. Budget-efficiency rankings agree strongly (Kendall $\tau=0.758$, $p<0.001$, $N=12$); the dashed line is the identity.}
+\label{fig:cross-benchmark}
+\end{figure}
+
+\section{Discussion and Limitations}
+\label{sec:discussion}
+\paragraph{Implications for practitioners.} On our testbeds, (i) a ``27B-class open-weight model with ample budget headroom'' outperforms a ``flagship model on a tight budget'' across almost every budget interval; (ii) the thinking budget should be set to ${\sim}$1K rather than left unbounded, as additional thinking yields no measurable gain on these benchmarks; and (iii) model selection must be re-evaluated under the same accounting that deployment uses, since the unbounded leaderboard has no predictive power ($\tau\approx0$) in the low-budget regime.
+
+\paragraph{Threats and limitations.} (i) \emph{Benchmark families}: although the cross-benchmark result (Section~\ref{subsec:cross-benchmark}) covers two structurally different families, both are English-language and API-served; extension to software-engineering or web-navigation agents remains to be verified. (ii) \emph{Judge dependence}: the user simulator and NL-assertion judge are fixed to DeepSeek models, a theoretical self-preference risk---but the primary judge signal is a deterministic database-state comparison, the NL assertion is auxiliary, and all evaluated models share the same judge, so any systematic bias does not affect between-model ordering. (iii) \emph{Accounting approximation}: list prices are taken at the first tier of tiered pricing (per-task input never exceeds the tier), and cache discounts are excluded from the primary metric (Section~\ref{subsec:cost-accounting} gives the realized-billing comparison). (iv) \emph{Endpoint opacity}: quantization and speculative decoding of hosted endpoints are uncontrollable, so the empty-response phenomenon (Section~\ref{subsec:reliability-failures}) may stem from endpoint configuration rather than the weights themselves; the conclusions should be read as ``an evaluation of that hosted endpoint'' rather than ``of the weights.'' (v) \emph{Budget-aware agents} are out of scope: whether an explicit budget signal improves $S(B)$ is a natural follow-up requiring a dedicated agent and per-budget-level runs. (vi) \emph{Sample size and power}: the minimum detectable effect (two proportions, $\alpha=0.05$, power 0.8) is 28.0~pp on airline (50 tasks) and 18.6~pp on retail/telecom (114 tasks); the headline Qwen3.5-27B-vs-Qwen3.7-Max gaps (35--50~pp) are powered in all three domains, whereas smaller single-domain orderings are treated as indicative (Appendix~\ref{app:robust}).
+
+%% =================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+We proposed a budget-constrained evaluation protocol for LLM agents that turns the deployer's real question---which model to run under a per-task budget---into a measurable, table-lookup object: the $S(B)$ curve family and its derived metrics, together with a single-run derivation that makes the whole family cheap to obtain. An empirical study of 12 open-weight and Chinese-API models over 4,448 multi-turn trajectories yields four results: budget constraints statistically decouple the leaderboard from the conventional ranking (low-budget $\tau\approx0$, budget-to-target differing 17--20$\times$); the single-turn price-reversal phenomenon vanishes in multi-step tasks because the cost structure inverts; the benefit of thinking saturates at about 1K tokens; and open-weight hosted endpoints exhibit deterministic failures that must enter the evaluation accounting. A second benchmark confirms that the budget-efficiency ranking generalizes (Kendall $\tau=0.758$, $p<0.001$). The protocol, code, all trajectories, and per-token cost records are released, and the framework extends directly to new models, new benchmarks, and budget-aware agents.
+
+%% =================================================================
+%% Bibliography
+%% =================================================================
+
+\section*{Declarations}
+\noindent\textbf{Ethics.} This study involves no human participants, identifiable personal data, or animal experimentation; it uses public benchmarks, simulated users, and public API models, so institutional review, informed consent, and animal-welfare approval are not applicable.\\
+\noindent\textbf{Funding.} The author received no specific funding for this work.\\
+\noindent\textbf{Competing interests.} The author declares no competing interests.\\
+\noindent\textbf{Data availability.} All code, evaluation trajectories, and per-token cost records are released in a public repository with a permanent archival DOI; the repository URL and DOI are withheld in this anonymized manuscript to preserve double-blind review and are provided to the editor on the separate title page.\\
+\noindent\textbf{Generative AI use.} AI-based coding and language tools were used to assist implementation and manuscript preparation; all experimental design, analysis, and scientific claims are the author's own and were verified against the released data.\\
+
+\appendix
+\section{Full per-domain results}
+\label{app:full}
+\begin{table}[h]
+\centering
+\caption{Full results across the 12-model matrix and three $\tau^3$-bench domains (per-domain and per-model average). Columns as in Table~\ref{tab:table1-main}, with $B_{@80}$ additionally reported.}
+\label{tab:full-appendix}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l l r r r c r r}
+\toprule
+Model & Domain & $n_{\text{valid}}$ & pass@1 & Mean cost (USD) & AUBC [95\% CI] & $B_{@50}$ (USD) & $B_{@80}$ (USD) \\
+\midrule
+deepseek-v4-flash & airline & 150 & 0.800 & \$0.0101 & 0.516 [0.473, 0.557] & \$0.0100 & \$0.0310 \\
+deepseek-v4-flash & retail & 342 & 0.822 & \$0.0105 & 0.535 [0.509, 0.562] & \$0.0115 & \$0.0210 \\
+deepseek-v4-flash & telecom & 342 & 0.994 & \$0.0223 & 0.574 [0.564, 0.583] & \$0.0207 & \$0.0311 \\
+deepseek-v4-flash & AVERAGE & 278 & 0.872 & \$0.0143 & 0.542 [0.515, 0.568] & \$0.0141 & \$0.0277 \\
+\midrule
+deepseek-v4-pro & airline & 50 & 0.820 & \$0.0303 & 0.393 [0.338, 0.444] & \$0.0272 & \$0.0691 \\
+deepseek-v4-pro & retail & 114 & 0.860 & \$0.0301 & 0.408 [0.376, 0.438] & \$0.0311 & \$0.0461 \\
+deepseek-v4-pro & telecom & 114 & 0.947 & \$0.0642 & 0.375 [0.352, 0.396] & \$0.0628 & \$0.0892 \\
+deepseek-v4-pro & AVERAGE & 92.7 & 0.876 & \$0.0416 & 0.392 [0.356, 0.426] & \$0.0404 & \$0.0681 \\
+\midrule
+qwen3-235b-instruct & airline & 50 & 0.440 & \$0.0248 & 0.241 [0.166, 0.320] & -- & -- \\
+qwen3-235b-instruct & retail & 114 & 0.684 & \$0.0260 & 0.357 [0.311, 0.403] & \$0.0252 & -- \\
+qwen3-235b-instruct & telecom & 114 & 0.509 & \$0.0508 & 0.236 [0.191, 0.280] & \$0.0748 & -- \\
+qwen3-235b-instruct & AVERAGE & 92.7 & 0.544 & \$0.0339 & 0.278 [0.223, 0.334] & \$0.0500 & -- \\
+\midrule
+qwen3-235b-thinking & airline & 50 & 0.640 & \$0.0522 & 0.267 [0.207, 0.322] & \$0.0547 & -- \\
+qwen3-235b-thinking & retail & 114 & 0.737 & \$0.0455 & 0.309 [0.273, 0.345] & \$0.0475 & -- \\
+qwen3-235b-thinking & telecom & 114 & 0.649 & \$0.0866 & 0.240 [0.205, 0.276] & \$0.1063 & -- \\
+qwen3-235b-thinking & AVERAGE & 92.7 & 0.675 & \$0.0615 & 0.272 [0.228, 0.314] & \$0.0695 & -- \\
+\midrule
+qwen3-32b & airline & 50 & 0.100 & \$0.0252 & 0.056 [0.012, 0.106] & -- & -- \\
+qwen3-32b & retail & 114 & 0.561 & \$0.0312 & 0.282 [0.235, 0.329] & \$0.0373 & -- \\
+qwen3-32b & telecom & 114 & 0.263 & \$0.0416 & 0.126 [0.089, 0.165] & -- & -- \\
+qwen3-32b & AVERAGE & 92.7 & 0.308 & \$0.0327 & 0.155 [0.112, 0.200] & \$0.0373 & -- \\
+\midrule
+qwen3.5-122b-a10b & airline & 50 & 0.820 & \$0.0168 & 0.471 [0.406, 0.529] & \$0.0149 & \$0.0355 \\
+qwen3.5-122b-a10b & retail & 114 & 0.807 & \$0.0142 & 0.487 [0.443, 0.532] & \$0.0156 & \$0.0311 \\
+qwen3.5-122b-a10b & telecom & 114 & 0.991 & \$0.0212 & 0.581 [0.563, 0.597] & \$0.0195 & \$0.0294 \\
+qwen3.5-122b-a10b & AVERAGE & 92.7 & 0.873 & \$0.0174 & 0.513 [0.470, 0.553] & \$0.0167 & \$0.0320 \\
+\midrule
+qwen3.5-27b & airline & 50 & 0.860 & \$0.0113 & 0.545 [0.476, 0.607] & \$0.0100 & \$0.0170 \\
+qwen3.5-27b & retail & 114 & 0.903 & \$0.0109 & 0.589 [0.551, 0.624] & \$0.0105 & \$0.0181 \\
+qwen3.5-27b & telecom & 114 & 0.991 & \$0.0160 & 0.629 [0.610, 0.645] & \$0.0154 & \$0.0213 \\
+qwen3.5-27b & AVERAGE & 92.7 & 0.918 & \$0.0127 & 0.588 [0.546, 0.625] & \$0.0120 & \$0.0188 \\
+\midrule
+qwen3.5-35b-a3b & airline & 50 & 0.580 & \$0.0069 & 0.410 [0.313, 0.505] & \$0.0085 & -- \\
+qwen3.5-35b-a3b & retail & 114 & 0.798 & \$0.0070 & 0.583 [0.526, 0.640] & \$0.0071 & -- \\
+qwen3.5-35b-a3b & telecom & 114 & 1.000 & \$0.0104 & 0.705 [0.691, 0.718] & \$0.0102 & \$0.0133 \\
+qwen3.5-35b-a3b & AVERAGE & 92.7 & 0.793 & \$0.0081 & 0.566 [0.510, 0.621] & \$0.0086 & \$0.0133 \\
+\midrule
+qwen3.5-397b-a17b & airline & 50 & 0.820 & \$0.0244 & 0.424 [0.361, 0.476] & \$0.0208 & \$0.0433 \\
+qwen3.5-397b-a17b & retail & 114 & 0.825 & \$0.0208 & 0.452 [0.413, 0.490] & \$0.0217 & \$0.0385 \\
+qwen3.5-397b-a17b & telecom & 114 & 1.000 & \$0.0291 & 0.526 [0.514, 0.538] & \$0.0294 & \$0.0371 \\
+qwen3.5-397b-a17b & AVERAGE & 92.7 & 0.881 & \$0.0248 & 0.467 [0.429, 0.501] & \$0.0239 & \$0.0396 \\
+\midrule
+qwen3.6-flash & airline & 50 & 0.800 & \$0.0238 & 0.411 [0.349, 0.468] & \$0.0215 & \$0.0448 \\
+qwen3.6-flash & retail & 114 & 0.825 & \$0.0202 & 0.454 [0.415, 0.492] & \$0.0204 & \$0.0311 \\
+qwen3.6-flash & telecom & 114 & 1.000 & \$0.0298 & 0.522 [0.510, 0.534] & \$0.0294 & \$0.0371 \\
+qwen3.6-flash & AVERAGE & 92.7 & 0.875 & \$0.0246 & 0.462 [0.425, 0.498] & \$0.0238 & \$0.0377 \\
+\midrule
+qwen3.7-max & airline & 50 & 0.820 & \$0.1993 & 0.160 [0.133, 0.187] & \$0.2009 & \$0.3786 \\
+qwen3.7-max & retail & 114 & 0.746 & \$0.1753 & 0.143 [0.125, 0.162] & \$0.1843 & -- \\
+qwen3.7-max & telecom & 114 & 0.974 & \$0.2628 & 0.143 [0.131, 0.155] & \$0.2633 & \$0.3327 \\
+qwen3.7-max & AVERAGE & 92.7 & 0.846 & \$0.2124 & 0.149 [0.130, 0.168] & \$0.2162 & \$0.3557 \\
+\midrule
+qwen3.7-plus & airline & 150 & 0.847 & \$0.0349 & 0.385 [0.356, 0.413] & \$0.0332 & \$0.0625 \\
+qwen3.7-plus & retail & 342 & 0.792 & \$0.0309 & 0.381 [0.360, 0.402] & \$0.0311 & -- \\
+qwen3.7-plus & telecom & 340 & 0.985 & \$0.0440 & 0.447 [0.438, 0.455] & \$0.0417 & \$0.0559 \\
+qwen3.7-plus & AVERAGE & 277.3 & 0.875 & \$0.0366 & 0.404 [0.384, 0.423] & \$0.0353 & \$0.0592 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+\section{Robustness analyses}
+\label{app:robust}
+We summarize three robustness checks; scripts and JSON outputs are released.
+
+\paragraph{Subset sensitivity of the cross-benchmark correlation.} Resampling the 100 BFCL tasks with replacement (2{,}000 reps) yields a cross-benchmark AUBC Kendall $\tau$ of $0.774$ (95\% CI $[0.67, 0.88]$); a 50-task subsample without replacement gives the same range. The lower bound stays $\geq 0.67$ in every scheme, so the positive cross-benchmark correlation does not depend on the fixed first-100-task prefix.
+
+\paragraph{Cost-accounting robustness.} Recovering realized/list-price ratios from actual provider bills gives 0.135 and 0.225 for the two DeepSeek models (a structural $\sim$93\% context-cache hit rate), 0.50 and 0.80 for Qwen3.7-Max/Plus (site-wide time-limited promotions), and 1.0 for the remaining eight Qwen models. Re-ranking by realized cost preserves the ordering strongly (Kendall $\tau=0.727$, $p=5\times10^{-4}$, for both AUBC and $B_{@50}$). The conclusion that no flagship model reaches the top two is unaffected; the only material change is that DeepSeek-V4-Flash overtakes Qwen3.5-27B for the single top spot, because DeepSeek's cache discount is deeper than Qwen's promotional discount. We therefore report the two as co-leaders in the main text rather than asserting a single winner.
+
+\paragraph{Statistical power.} The minimum detectable effect (two independent proportions, $\alpha=0.05$, power 0.8, conservative $p=0.5$) is 28.0~pp for airline ($n=50$) and 18.6~pp for retail and telecom ($n=114$). The Qwen3.5-27B-vs-Qwen3.7-Max AUBC and pass@1 gaps (35--50~pp) exceed the MDE in all three domains and are thus powered; the thinking-budget $0\!\to\!1024$ contrast (6.1~pp) falls below its MDE (10.6~pp), consistent with the direction-consistent-but-not-significant reading in Section~\ref{subsec:dose-response}. Our McNemar implementation reproduces the main-text $p$-values ($0.0029$ vs.\ $0.0027$; $0.151$ vs.\ $0.15$).
+
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{refs}
+
+\end{document}
