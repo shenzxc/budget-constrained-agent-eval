@@ -1,0 +1,29 @@
+# Cover Letter
+
+Dear Editors of *Expert Systems with Applications*,
+
+We are pleased to submit our manuscript, **"Budget-Constrained Evaluation of Open-Weight LLM Agents: Success–Budget Curves, Price Reversal, and Thinking-Budget Saturation,"** for consideration as an original research article.
+
+Large language model (LLM) agents are increasingly deployed for multi-turn, tool-using tasks whose inference cost accumulates over many steps. Yet the dominant way to evaluate them—ranking models by task success under an unlimited budget—does not answer the question a budget-sensitive practitioner actually faces: *given a per-task budget B, which model should I deploy?* Our work turns this deployment question into a measurable object.
+
+The manuscript makes the following contributions, which we believe fit the scope of *Expert Systems with Applications* as a decision-support and applied-AI methodology:
+
+1. **A budget-constrained evaluation protocol** that treats the per-task budget as the independent variable and reports a success–budget curve S(B) together with a family of decision-relevant metrics (area under the budget curve, budget-to-target, budget elasticity, and pairwise crossover points that yield a budget-interval-to-best-model lookup table). We prove a truncation-equivalence property that lets the entire curve family be derived from a single maximum-budget run per task, decoupling evaluation cost from the number of budget levels.
+
+2. **A systematic empirical study** of 12 open-weight and Chinese-API model configurations (DeepSeek-V4 and Qwen3 families, ~100× price range) over 4,448 multi-turn trajectories on the τ³-bench customer-service benchmark, a population absent from existing agent leaderboards but central to cost-sensitive deployment.
+
+3. **Four findings with direct practical implications**: (i) budget constraints statistically decouple the leaderboard from the conventional ranking (low-budget Kendall τ ≈ 0; budget-to-target differing 17–20×); (ii) the single-turn "price reversal" phenomenon does not appear in multi-step tasks (0 of 66 pairs); (iii) the benefit of a model's thinking budget saturates at ~1K tokens; and (iv) open-weight hosted endpoints exhibit deterministic failures whose accounting materially changes measured cost-effectiveness.
+
+4. **A cross-benchmark generalization test** on a second, structurally different benchmark (BFCL multi-turn function calling) confirming that the budget-efficiency ranking transfers strongly (Kendall τ = 0.758, p < 0.001, N = 12).
+
+To support reproducibility and reuse, we release the full protocol implementation, all trajectories, per-token cost records, and analysis scripts.
+
+This manuscript is original, has not been published elsewhere, and is not under consideration by any other journal. The author declares no conflict of interest. We suggest reviewers with expertise in LLM-agent evaluation, cost-aware machine learning, and benchmarking methodology.
+
+Thank you for your consideration.
+
+Sincerely,
+
+Weiming Shen
+[Affiliation — to be completed]
+19708110566@139.com
