@@ -17,6 +17,10 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+\newcommand{\pmark}{$\sim$}
 \newtheorem{proposition}{Proposition}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -90,6 +94,26 @@ Our contributions are as follows.
 \paragraph{Agent benchmarks.} $\tau$-bench and its successor $\tau^3$-bench~\cite{barres2025tau2bench} characterize customer-service agents through LLM-simulated users and policy-constrained tool calls; the $\tau^3$ release fixed more than 75 task defects identified by SABER~\cite{cuadron2025saber} and added a telecom domain, making it one of the most strictly scored multi-turn tool-use benchmarks available. SWE-bench~\cite{jimenez2024swebench}, GAIA~\cite{mialon2023gaia}, and AgentBench~\cite{liu2024agentbench} cover software engineering and general assistance, typically with ReAct-style agents~\cite{yao2023react}. Across all of these, leaderboards rank by success rate; cost appears at most as a footnote.
 
 \paragraph{Cost-aware evaluation.} Kapoor et al.~\cite{kapoor2025aiagentsmatter} first argued that agent evaluations neglect cost, proposed joint accuracy--cost Pareto reporting, and showed that simple baselines often Pareto-dominate elaborate agents; their follow-up HAL~\cite{kapoor2025holisticagentleaderboard} standardized evaluation infrastructure and recorded the cost of nine closed frontier models across nine benchmarks (21{,}730 rollouts, \$40K). Cost-of-Pass~\cite{erol2025costofpass} defines the expected monetary cost per correct solution and tracks its frontier over model releases. The closest motivation to ours is the price-reversal study~\cite{chen2026pricereversal}: on nine single-turn reasoning datasets, 21.8\% of model pairs invert between list-price order and realized-cost order, driven by thinking-token variance (up to 9.7$\times$ for a repeated query), and the authors call for cost as a first-class evaluation dimension. \emph{Our difference from all of the above lies in the evaluation semantics}: they record or aggregate realized spending, whereas we impose a prospective budget constraint and measure the response of success to budget---the former answers ``how much was spent,'' the latter answers ``what can be accomplished under a given budget,'' which is the form deployment decisions take. BCAS~\cite{mccleary2026budgetconstrainedsearch} ablates design decisions of retrieval agents under fixed budgets but is restricted to one scaffold family and does not propose curve-family metrics; Efficient Agents~\cite{wang2025efficientagents} reduces agent cost by design rather than measuring cross-model budget response.
+
+Table~\ref{tab:comparison} positions this work against the closest prior art along six axes; to our knowledge no prior work combines a prospective per-task budget constraint, the full success--budget metric family, and open-weight/public-API coverage.
+
+\begin{table}[t]
+\centering
+\caption{Positioning against the closest cost-aware evaluation work. \cmark: supported; \pmark: partial/limited; \xmark: not addressed. Axes: multi-step agents; prospective per-task budget cap (vs.\ post-hoc cost recording); full success--budget curve family ($S(B)$/AUBC/$B_{@\tau}$/crossovers); offline whole-curve derivation from a single run; deployment-oriented budget-to-model lookup; coverage of open-weight/public-API models.}
+\label{tab:comparison}
+\small
+\begin{tabular}{l c c c c c c}
+\toprule
+Work & Multi-step & Budget cap & Curve family & Offline deriv.\ & Deploy.\ lookup & Open-weight \\
+\midrule
+HAL~\cite{kapoor2025holisticagentleaderboard} & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark \\
+Cost-of-Pass~\cite{erol2025costofpass} & \xmark & \xmark & \xmark & \xmark & \xmark & \pmark \\
+Price Reversal~\cite{chen2026pricereversal} & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\
+BCAS~\cite{mccleary2026budgetconstrainedsearch} & \cmark & \cmark & \xmark & \xmark & \xmark & \pmark \\
+\textbf{This work} & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \paragraph{Test-time compute and thinking budgets.} Overthinking and adaptive test-time compute have been surveyed systematically~\cite{alomrani2025reasoningonabudget}, and adaptive effort selection has been studied for agents~\cite{yang2026ares}. Public APIs now expose thinking-budget controls, turning the amount of thinking into a controllable experimental variable; existing measurements, however, focus on single-turn mathematics and coding, and the dose--response of thinking budget on multi-step agent success had not been measured systematically (our RQ3).
 
