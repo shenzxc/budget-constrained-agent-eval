@@ -72,8 +72,8 @@ API keys for the providers, and the run scripts (`run_matrix.py`, `bfcl_finish.p
 
 All derived evaluation data (trajectory-level success and token/cost records,
 summary tables, figures) are in `experiments/analysis/output/`. Raw per-task
-simulation logs (~1 GB) are archived separately due to size. This repository is
-archived on Zenodo with a persistent DOI (see the citation below).
+simulation logs (~1 GB) are archived separately due to size. This repository is archived on Zenodo with a persistent DOI:
+[10.5281/zenodo.21215799](https://doi.org/10.5281/zenodo.21215799).
 
 ## License
 
@@ -87,6 +87,7 @@ Code: MIT. Derived data: CC BY 4.0. See `LICENSE`.
             Success--Budget Curves, Price Reversal, and Thinking-Budget Saturation},
   author = {Shen, Weiming},
   year   = {2026},
-  note   = {Zenodo DOI: <to be inserted after archival>}
+  doi    = {10.5281/zenodo.21215799},
+  note   = {Replication package, Zenodo}
 }
 ```
