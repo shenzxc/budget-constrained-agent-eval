@@ -1,0 +1,14 @@
+========== TITLE(粘到 Full Title 框)==========
+Budget-Constrained Evaluation of Open-Weight LLM Agents: Success–Budget Curves, Price Reversal, and Thinking-Budget Saturation
+
+========== ABSTRACT(粘到 Abstract 框)==========
+Public leaderboards rank large language model (LLM) agents by success rate under an unlimited inference budget, whereas budget-sensitive practitioners face a different question: which model should be deployed when each task may spend at most a budget B? We propose a budget-constrained evaluation protocol that treats the per-task budget as the independent variable and reports the success–budget curve S(B) together with a family of derived metrics: the normalized area under the curve (AUBC), the budget-to-target B@tau, budget elasticity, and pairwise crossover points between models. We further show that for budget-unaware agents, the entire curve can be derived offline from a single maximum-budget run per task, decoupling evaluation cost from the number of budget levels. Applying the protocol to a coverage gap in existing evaluations—open-weight models served through public APIs—we evaluate 12 configurations of the DeepSeek-V4 and Qwen3 families (spanning a roughly 100-fold price range) on the three tau-cubed-bench customer-service domains, collecting 4,448 multi-turn tool-use trajectories. Four findings emerge. (1) Budget constraints substantially reorder the leaderboard: at 0.3x the median budget-to-50%-success, budget-constrained rankings are statistically unrelated to unconstrained ones (Kendall tau from -0.02 to 0.52), and the budget required to reach 50% success differs by 17–20x between models of comparable unconstrained accuracy. (2) The price-reversal phenomenon reported for single-turn reasoning does not appear in any of 66 model pairs (95% upper confidence bound 4.4%), because trajectory cost is dominated by repeatedly resent context rather than thinking tokens. (3) Thinking yields a real but strongly saturating benefit: a same-backbone paired contrast is significant (p=0.0027) at roughly twice the cost, yet the gain saturates at a budget of about 1K thinking tokens. (4) Open-weight hosted endpoints exhibit deterministic empty-response failures on up to 28% of tasks for one model; treating these as infrastructure errors rather than model failures would inflate its measured success by 24 percentage points. All trajectories, code, and per-token cost records are released.
+
+========== KEYWORDS(逐个加,共7个)==========
+LLM agents
+budget-constrained evaluation
+cost-aware decision support
+intelligent systems deployment
+inference cost
+open-weight models
+tool-use agents

@@ -1,0 +1,7 @@
+Highlights
+
+- A budget-constrained protocol turns agent evaluation into success–budget curves.
+- Per-task budget caps reorder the leaderboard; cheap open models often win.
+- Single-turn price reversal disappears in multi-step tasks (0 of 66 pairs).
+- Thinking benefit saturates near 1K tokens; larger budgets add no measurable gain.
+- Budget-efficiency ranking generalizes across two benchmarks (Kendall tau = 0.76).

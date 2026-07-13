@@ -1,0 +1,60 @@
+{
+  "state": "retry_round",
+  "current": "qwen3.6-flash-FC",
+  "idx": 7,
+  "purged": 100,
+  "done": [
+    {
+      "model": "qwen3.5-27b-FC",
+      "n_done": 100,
+      "cost_cny": 4.51,
+      "in_tok": 6180023,
+      "out_tok": 166406
+    },
+    {
+      "model": "qwen3.7-max-FC",
+      "n_done": 100,
+      "cost_cny": 86.64,
+      "in_tok": 6633546,
+      "out_tok": 195508
+    },
+    {
+      "model": "deepseek-v4-pro-FC",
+      "n_done": 100,
+      "cost_cny": 19.13,
+      "in_tok": 6146641,
+      "out_tok": 157522
+    },
+    {
+      "model": "qwen3-235b-a22b-thinking-2507-FC",
+      "n_done": 100,
+      "cost_cny": 22.5,
+      "in_tok": 5649809,
+      "out_tok": 560184
+    },
+    {
+      "model": "qwen3.7-plus-FC",
+      "n_done": 100,
+      "cost_cny": 14.07,
+      "in_tok": 6211463,
+      "out_tok": 206036
+    },
+    {
+      "model": "qwen3-32b-FC",
+      "n_done": 100,
+      "cost_cny": 8.45,
+      "in_tok": 4092446,
+      "out_tok": 33178
+    },
+    {
+      "model": "qwen3-235b-a22b-instruct-2507-FC",
+      "n_done": 100,
+      "cost_cny": 10.8,
+      "in_tok": 5235279,
+      "out_tok": 40831
+    }
+  ],
+  "issues": [],
+  "timestamp": "2026-07-06 08:24:44",
+  "cumulative_cost_cny": 167.67
+}

@@ -1,0 +1,13 @@
+[deepseek-v4-flash-FC] generate attempt 1/4
+[deepseek-v4-flash-FC] evaluate
+[deepseek-v4-flash-FC] 完成
+[qwen3.5-397b-a17b-FC] generate attempt 1/4
+[qwen3.5-397b-a17b-FC] evaluate
+[qwen3.5-397b-a17b-FC] 完成
+[qwen3.5-122b-a10b-FC] generate attempt 1/4
+[qwen3.5-122b-a10b-FC] evaluate
+[qwen3.5-122b-a10b-FC] 完成
+[qwen3.5-35b-a3b-FC] generate attempt 1/4
+[qwen3.5-35b-a3b-FC] evaluate
+[qwen3.5-35b-a3b-FC] 完成
+ALL_REMAINING_DONE
